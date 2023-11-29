@@ -1,0 +1,21 @@
+# Net Smelting Gain
+
+The Net Smelting Gain (NSG) is a measure of the number of items an individual fuel source item can smelt after accounting for the number of its own items it must consume in order to turn itself into a fuel source. 
+
+An early example of an item that must be smelted prior to smelting is a wood block. After being smelted, it becomes charcoal, which is then able to smelt eight items. The cost of one wood block is deducted from the items the charcoal can smelt, giving it a net gain of seven items. 
+
+Since raw materials may have different NSGs after crafting, the NSG should generally be reported with the raw item and the crafted item in the form NSG(wood block -> charcoal). 
+
+The calculation of NSG requires knowledge of three items:
+
+* $SI$: the 'self immolation' factor, or the number of items of the raw material type required to convert the raw material into fuel.
+* $OI$: the 'other immolation' factor, or the total number of items the crafted item can smelt in a furnace.
+* $CC$: the 'crafting consumption', or the number or raw materials involved in crafting prior to the raw material being converted to fuel.
+
+With these values, the NSG is calculated by 
+
+$$ NSG = \frac{OI - SI}{CC}$$
+
+Using the wood block as an example again, each charcoal produced by a wood block can smelt eight items ($OI = 8$), it requires one wood block to convert a wood block to charcoal ($SI = 1$), and there is one wood block consumed in converting a wood block to charcoal ($CC = 1$). Thus
+
+$$NSG(wood\ block \rightarrow charcoal) = \frac{8 - 1}{1} = 7$$

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Expected Crop Output | Probabilistic Minecraft Farming</title>
+  <meta name="description" content="6 Expected Crop Output | Probabilistic Minecraft Farming" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Expected Crop Output | Probabilistic Minecraft Farming" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Expected Crop Output | Probabilistic Minecraft Farming" />
+  
+  
+  
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2023-11-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="time-to-maturity.html"/>
+<link rel="next" href="net-smelting-gain.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#definitions"><i class="fa fa-check"></i><b>1.1</b> Definitions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html"><i class="fa fa-check"></i><b>2</b> Growth Related Tick Mechanics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#probability-of-random-tick-assignment"><i class="fa fa-check"></i><b>2.1</b> Probability of Random Tick Assignment</a></li>
+<li class="chapter" data-level="2.2" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#time-to-random-tick"><i class="fa fa-check"></i><b>2.2</b> Time to Random Tick</a></li>
+<li class="chapter" data-level="2.3" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#distributional-background-of-ticks"><i class="fa fa-check"></i><b>2.3</b> Distributional Background of Ticks</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#number-of-random-ticks-assigned"><i class="fa fa-check"></i><b>2.3.1</b> Number of Random Ticks Assigned</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="growth-probability.html"><a href="growth-probability.html"><i class="fa fa-check"></i><b>3</b> Growth Probability</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="growth-probability.html"><a href="growth-probability.html#from-mean-time-to-growth"><i class="fa fa-check"></i><b>3.1</b> From Mean Time to Growth</a></li>
+<li class="chapter" data-level="3.2" data-path="growth-probability.html"><a href="growth-probability.html#from-median-time-to-growth"><i class="fa fa-check"></i><b>3.2</b> From Median Time to Growth</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="time-to-growth.html"><a href="time-to-growth.html"><i class="fa fa-check"></i><b>4</b> Time to Growth</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="time-to-growth.html"><a href="time-to-growth.html#mean-time-to-growth"><i class="fa fa-check"></i><b>4.1</b> Mean Time to Growth</a></li>
+<li class="chapter" data-level="4.2" data-path="time-to-growth.html"><a href="time-to-growth.html#median-time-to-growth"><i class="fa fa-check"></i><b>4.2</b> Median Time to Growth</a></li>
+<li class="chapter" data-level="4.3" data-path="time-to-growth.html"><a href="time-to-growth.html#time-to-growth-quantiles"><i class="fa fa-check"></i><b>4.3</b> Time To Growth Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="time-to-maturity.html"><a href="time-to-maturity.html"><i class="fa fa-check"></i><b>5</b> Time to Maturity</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="time-to-maturity.html"><a href="time-to-maturity.html#mean-time-to-maturity"><i class="fa fa-check"></i><b>5.1</b> Mean Time to Maturity</a></li>
+<li class="chapter" data-level="5.2" data-path="time-to-maturity.html"><a href="time-to-maturity.html#median-time-to-maturity"><i class="fa fa-check"></i><b>5.2</b> Median Time To Maturity</a></li>
+<li class="chapter" data-level="5.3" data-path="time-to-maturity.html"><a href="time-to-maturity.html#time-to-maturity-quantiles"><i class="fa fa-check"></i><b>5.3</b> Time to Maturity Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="expected-crop-output.html"><a href="expected-crop-output.html"><i class="fa fa-check"></i><b>6</b> Expected Crop Output</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="expected-crop-output.html"><a href="expected-crop-output.html#mean-expected-crop-output"><i class="fa fa-check"></i><b>6.1</b> Mean Expected Crop Output</a></li>
+<li class="chapter" data-level="6.2" data-path="expected-crop-output.html"><a href="expected-crop-output.html#median-expected-crop-output"><i class="fa fa-check"></i><b>6.2</b> Median Expected Crop Output</a></li>
+<li class="chapter" data-level="6.3" data-path="expected-crop-output.html"><a href="expected-crop-output.html#quantiles-of-expected-crop-output"><i class="fa fa-check"></i><b>6.3</b> Quantiles of Expected Crop Output</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="net-smelting-gain.html"><a href="net-smelting-gain.html"><i class="fa fa-check"></i><b>7</b> Net Smelting Gain</a></li>
+<li class="chapter" data-level="8" data-path="perpetual-furnace-index.html"><a href="perpetual-furnace-index.html"><i class="fa fa-check"></i><b>8</b> Perpetual Furnace Index</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="perpetual-furnace-index.html"><a href="perpetual-furnace-index.html#mean-perpetual-furnace-index"><i class="fa fa-check"></i><b>8.1</b> Mean Perpetual Furnace Index</a></li>
+<li class="chapter" data-level="8.2" data-path="perpetual-furnace-index.html"><a href="perpetual-furnace-index.html#median-perpetual-furnace-index"><i class="fa fa-check"></i><b>8.2</b> Median Perpetual Furnace Index</a></li>
+<li class="chapter" data-level="8.3" data-path="perpetual-furnace-index.html"><a href="perpetual-furnace-index.html#quantiles-of-perpetual-furnace-index"><i class="fa fa-check"></i><b>8.3</b> Quantiles of Perpetual Furnace Index</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="bamboo-farming.html"><a href="bamboo-farming.html"><i class="fa fa-check"></i><b>9</b> Bamboo Farming</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="bamboo-farming.html"><a href="bamboo-farming.html#farm-metrics"><i class="fa fa-check"></i><b>9.1</b> Farm Metrics</a></li>
+<li class="chapter" data-level="9.2" data-path="bamboo-farming.html"><a href="bamboo-farming.html#growth-stages"><i class="fa fa-check"></i><b>9.2</b> Growth Stages</a></li>
+<li class="chapter" data-level="9.3" data-path="bamboo-farming.html"><a href="bamboo-farming.html#optimizing-timed-harvests"><i class="fa fa-check"></i><b>9.3</b> Optimizing Timed Harvests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="kelp-farming.html"><a href="kelp-farming.html"><i class="fa fa-check"></i><b>10</b> Kelp Farming</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="kelp-farming.html"><a href="kelp-farming.html#farm-metrics-1"><i class="fa fa-check"></i><b>10.1</b> Farm Metrics</a></li>
+<li class="chapter" data-level="10.2" data-path="kelp-farming.html"><a href="kelp-farming.html#growth-stages-1"><i class="fa fa-check"></i><b>10.2</b> Growth Stages</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="wheat-farming.html"><a href="wheat-farming.html"><i class="fa fa-check"></i><b>11</b> Wheat Farming</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="wheat-farming.html"><a href="wheat-farming.html#farm-metrics-2"><i class="fa fa-check"></i><b>11.1</b> Farm Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="wheat-seed-farming.html"><a href="wheat-seed-farming.html"><i class="fa fa-check"></i><b>12</b> Wheat Seed Farming</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="wheat-seed-farming.html"><a href="wheat-seed-farming.html#farm-metrics-3"><i class="fa fa-check"></i><b>12.1</b> Farm Metrics</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probabilistic Minecraft Farming</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="expected-crop-output" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Expected Crop Output<a href="expected-crop-output.html#expected-crop-output" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The Expected Crop Output (ECO) is a measure of how much crop is produced by a single block of farm per minute. In usual statistics terms, “Expected Crop Output” would normally relate to the expected value of a distribution. Such an interpretation is unnecessary here, and the notation in use in previous sections will be utilized to distinguish mean ECO (<span class="math inline">\(ECO_\mu\)</span>) from median ECO (<span class="math inline">\(ECO_M\)</span>).</p>
+<p>The ECO is a measure useful for helping to plan the size of a farm necessary to produce a desired quantity of crop. If a player wishes to fuel a furnace using bamboo, how many blocks of farmland are required to keep the furnace running at full capacity, for example. The ECO is calculated from Time to Maturity (TTM) and the number of crop yielded (<span class="math inline">\(y\)</span>).</p>
+<p>Some crops will drop a variable number of items. Wheat harvest, for example, will drop anywhere from 1 to 4 seeds. The Minecraft Wiki for <a href="https://minecraft.fandom.com/wiki/Wheat#Farming">Wheat</a> reports an average of 2.714286 seeds per harvested wheat. This value may be used for <span class="math inline">\(y\)</span>.</p>
+<div id="mean-expected-crop-output" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Mean Expected Crop Output<a href="expected-crop-output.html#mean-expected-crop-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[\begin{aligned}
+ECO_\mu &amp;= \frac{y}{TTM_\mu}
+\end{aligned}\]</span></p>
+</div>
+<div id="median-expected-crop-output" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Median Expected Crop Output<a href="expected-crop-output.html#median-expected-crop-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[\begin{aligned}
+ECO_M &amp;= \frac{y}{TTM_M}
+\end{aligned}\]</span></p>
+</div>
+<div id="quantiles-of-expected-crop-output" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Quantiles of Expected Crop Output<a href="expected-crop-output.html#quantiles-of-expected-crop-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[\begin{aligned}
+ECO_p &amp;= \frac{y}{TTM_p}
+\end{aligned}\]</span></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="time-to-maturity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="net-smelting-gain.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"theme": "united"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

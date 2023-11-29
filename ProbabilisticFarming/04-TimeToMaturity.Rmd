@@ -1,0 +1,40 @@
+# Time to Maturity
+
+Time to Maturity (TTM) is the duration of time between when it is planted and when it reaches a mature state and is ready to harvest. Crops may encounter several stages of growth before maturity--such as wheat, which encounters eight growth stages. Other crops, such as bamboo, are considered mature (harvestable) at every growth stage. This effectively gives bamboo a single growth stage. Yet, a player may decide they want to harvest the bamboo only when it is ten blocks tall. Such a condition would effectively apply nine growth stages to the bamboo. When considering a crop that experiences growth stages, it may be of importance to know the TTM in order to plan appropriate harvesting mechanics. 
+
+In the previous section, the Time to Growth (TTG) was calculated based on a Geometric distribution. This is appropriate for the TTG, since it is interested in when the _next_ growth event occurs. When calculating TTM, the event of interest is when $S$ growth events occur, where $S$ is the number of growth stages for the crop. These circumstances require a model based on the [Negative Binomial](https://en.wikipedia.org/wiki/Negative_binomial_distribution) distribution. 
+
+The basic level computation for TTM is $TTM = TTG \cdot R_S$ where $R_S$ is the number or random ticks assigned to a block before $S$ growth stages were experienced. Conceptually, this is nothing more than multiplying the Time to Growth by the number of growth attempts required to complete $S$ growth stages. This makes the calculation of $R_S$ essential to determining TTM. The calculation of $R_S$ is done by calculating the mean, median, or quantile of the Negative Binomial distribution with parameters $S$ and $\Pr(Growth | RTick)$.
+
+## Mean Time to Maturity
+
+The mean TTM ($TTM_\mu$) gives the mean time to maturity for a crop. The mean of the Negative Binomial distribution is given by $\mu = \frac{S}{\Pr(Growth|RTick)}$. 
+
+$$\begin{aligned}
+TTM_\mu &= TTG_\mu \cdot \frac{S}{\Pr(Growth|RTick)}
+\end{aligned}$$
+
+Alternatively, it may be written in the form
+
+$$\begin{aligned}
+TTM_\mu &= \frac{1200}{\Pr(RTick) \cdot \Pr(Growth|Tick)} \cdot \frac{S}{\Pr(Growth|RTick)} \\
+        &= \frac{1200 \cdot S}{\Pr(RTick) \cdot \Pr(Growth|Tick) ^ 2}
+\end{aligned}$$
+
+## Median Time To Maturity
+
+The median TTM ($TTM_M$) gives the median time to maturity for a crop. The median of the Negative Binomial distribution does not have a formt that lends itself to simple expression. Its calculation will rely on the use of computerized methods, such as R's `qnbinom` function.
+
+$$\begin{aligned}
+TTM_M &= TTG_M \cdot qnbinom(0.5,\ S,\ \Pr(Growth|RTick))
+\end{aligned}$$
+
+## Time to Maturity Quantiles
+
+Quantiles of the Time to Maturity ($TTM_p$) may be calculated in the form
+
+$$\begin{aligned}
+TTM_p &= TTG_M \cdot qnbinom(p,\ S,\ \Pr(Growth|RTick))
+\end{aligned}$$
+
+These estimates may be helpful when selecting timers for harvesting mechanisms as it allows the player to determine lower or upper tolerances around when crops reach maturity.

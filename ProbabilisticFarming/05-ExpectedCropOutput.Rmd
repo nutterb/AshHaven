@@ -1,0 +1,25 @@
+# Expected Crop Output
+
+The Expected Crop Output (ECO) is a measure of how much crop is produced by a single block of farm per minute. In usual statistics terms, "Expected Crop Output" would normally relate to the expected value of a distribution. Such an interpretation is unnecessary here, and the notation in use in previous sections will be utilized to distinguish mean ECO ($ECO_\mu$) from median ECO ($ECO_M$). 
+
+The ECO is a measure useful for helping to plan the size of a farm necessary to produce a desired quantity of crop. If a player wishes to fuel a furnace using bamboo, how many blocks of farmland are required to keep the furnace running at full capacity, for example. The ECO is calculated from Time to Maturity (TTM) and the number of crop yielded ($y$). 
+
+Some crops will drop a variable number of items. Wheat harvest, for example, will drop anywhere from 1 to 4 seeds. The Minecraft Wiki for [Wheat](https://minecraft.fandom.com/wiki/Wheat#Farming) reports an average of 2.714286 seeds per harvested wheat.  This value may be used for $y$. 
+
+## Mean Expected Crop Output
+
+$$\begin{aligned}
+ECO_\mu &= \frac{y}{TTM_\mu}
+\end{aligned}$$
+
+## Median Expected Crop Output
+
+$$\begin{aligned}
+ECO_M &= \frac{y}{TTM_M}
+\end{aligned}$$
+
+## Quantiles of Expected Crop Output
+
+$$\begin{aligned}
+ECO_p &= \frac{y}{TTM_p}
+\end{aligned}$$

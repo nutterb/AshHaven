@@ -1,0 +1,70 @@
+# Kelp Farming
+
+## Farm Metrics
+
+```{r}
+stage <- 1
+yield <- 1
+pr_growth <- 0.14
+```
+
+* Growth Stages: `r stage` (kind of)
+* $\Pr(Growth | RTick) = `r pr_growth`$
+* Time to Growth (TTG)
+    + $TTG_\mu = `r TTG_MEAN(pr_growth)`$
+    + $TTG_M = `r TTG_MEDIAN(pr_growth)`$
+    + $TTG_{0.05} = `r TTG_Q(0.05, pr_growth)`$
+    + $TTG_{0.10} = `r TTG_Q(0.10, pr_growth)`$
+    + $TTG_{0.90} = `r TTG_Q(0.90, pr_growth)`$
+    + $TTG_{0.95} = `r TTG_Q(0.95, pr_growth)`$
+* Time to Maturity (TTM) (1 stage)
+    + $TTM_\mu = `r TTM_MEAN(pr_growth, stage = stage)`$
+    + $TTM_M = `r TTM_MEDIAN(pr_growth, stage = stage)`$
+    + $TTM_{0.05} = `r TTM_Q(0.05, pr_growth, stage = stage)`$
+    + $TTM_{0.10} = `r TTM_Q(0.10, pr_growth, stage = stage)`$
+    + $TTM_{0.90} = `r TTM_Q(0.90, pr_growth, stage = stage)`$
+    + $TTM_{0.95} = `r TTM_Q(0.95, pr_growth, stage = stage)`$
+* Expected Crop Output (ECO)
+    + $ECO_\mu = `r ECO_MEAN(1, pr_growth, stage)`$
+    + $ECO_M = `r ECO_MEDIAN(1, pr_growth, stage)`$
+* Net Smelting Gain (NSG)
+    + $NSG(Kelp \rightarrow Dried Kelp Block) = `r NSG(20, 9, 9)`$
+* Perpetual Furnace Index (PFI) _Dried Kelp Block_
+    + $PFI_\mu = `r PFI(NSG(20, 9, 9), ECO_MEAN(1, pr_growth, stage), 1)`$
+    + $PFI_M = `r PFI(NSG(20, 9, 9), ECO_MEDIAN(1, pr_growth, stage), 1)`$
+
+## Growth Stages
+
+When kelp is planted, it is randomly assigned an age between 0 and 24. Thereafter, each time the kelp experiences a growth event, the age is incremented by 1. The kelp will stop growing when it is either 1 block below the surface, or it reaches an age of 25. As a result, kelp can grow to be anywhere between 2 and 26 blocks tall. 
+
+Anytime a kelp plant is broken at any level above the bottom level, its age is assigned a new random number between 0 and 24. This means it is fruitless to inspect plants for their age, as they routinely change when kelp are harvested. It also means the ECOs listed above are only valid for the second block of kelp, as it is the only block that is guaranteed to grow on any single kelp. 
+
+In a farm design that utilizes a long period between harvests, the potential for crop production is impacted by the randomized age. Due to the uniform distribution of age, the loss is linear. This loss is illustrated in the plot below. The impact on the farm is that shorter plants have the most potential for crop production. The practical value of this information is that harvesting should happen at as low a position height on the kelp plant as possible, preferably at level 2. Additionally, timing between harvests should be short enough to only anticipate one to three kelp per plant (that is, one to three times the TTM) to prevent loss of production due to kelp plants reaching their maximum height early in the harvest cycle.
+
+```{r}
+kelp_eco <- function(pr_growth, age, height, fun = ECO_MEAN){
+    age <- max(age, height - 1)
+    eco <- fun(1, pr_growth, 1)
+    
+    growth_potential <- length(age:24)
+    
+    sum(rep(eco * 0.04, growth_potential))
+}
+
+KelpFrame <- 
+    expand.grid(age = c(0, 5, 10, 20, 24), 
+                height = 1:24) %>% 
+    mutate(ECO_MEAN = mapply(kelp_eco, 
+                             age = age, 
+                             height = height, 
+                             MoreArgs = list(pr_growth = pr_growth, 
+                                             fun = ECO_MEAN), 
+                             SIMPLIFY = TRUE))
+
+ggplot(data = KelpFrame, 
+       mapping = aes(x = height, 
+                     y = ECO_MEAN, 
+                     colour = factor(age))) + 
+    geom_line(size = 1.2)
+```
+
