@@ -12,7 +12,7 @@ perpetual_furnace_index(
   yield,
   growth_probability,
   stages,
-  p,
+  p = 0.5,
   method = c("median", "mean", "quantile")
 )
 }

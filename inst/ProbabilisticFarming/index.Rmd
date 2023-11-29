@@ -25,6 +25,7 @@ link-citations: yes
 </style>
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(AshHaven)
 library(dplyr)
 library(ggplot2)
 
@@ -91,9 +92,12 @@ NSG <- function(OI, SI, CC){
 }
 
 # Perpetual Furnace Index
-PFI <- function(nsg, eco, cc){
-  (6 * cc) / (nsg * eco)
+PFI <- function(nsg, eco){
+  (6) / (nsg * eco)
 }
+```
+
+```{r, child = '00-SupportFunction.Rmd'}
 ```
 
 ```{r, child = '01-TickMechanics.Rmd'}

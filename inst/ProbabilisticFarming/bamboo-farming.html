@@ -150,50 +150,31 @@
 <div id="farm-metrics" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Farm Metrics</h2>
 <ul>
-<li>Growth Stages: 1 (kind of)</li>
-<li><span class="math inline">\(\Pr(Growth | RTick) = 0.3333333\)</span></li>
-<li>Time to Growth (TTG)
+<li>Growth Stages: 1</li>
+<li><span class="math inline">\(\Pr(Growth|RTick) = 0.333333333333333\)</span></li>
+<li>Yield: 1</li>
+<li>Time To Growth (TTG)
 <ul>
-<li><span class="math inline">\(TTG_\mu = 3.4133333\)</span></li>
-<li><span class="math inline">\(TTG_M = 1.3477079\)</span></li>
-<li><span class="math inline">\(TTG_{0.05} = 0\)</span></li>
-<li><span class="math inline">\(TTG_{0.10} = 0\)</span></li>
-<li><span class="math inline">\(TTG_{0.90} = 13.0916667\)</span></li>
-<li><span class="math inline">\(TTG_{0.95} = 23.8466667\)</span></li>
+<li><span class="math inline">\(TTG_M: 1.34770794915072\)</span></li>
+<li><span class="math inline">\(TTG_\mu: 3.41333333333333\)</span></li>
+<li><span class="math inline">\(TTG_{0.05}: 0.00738014837641722\)</span></li>
+<li><span class="math inline">\(TTG_{0.10}: 0.0311385658284121\)</span></li>
+<li><span class="math inline">\(TTG_{0.90}: 14.8722334214156\)</span></li>
+<li><span class="math inline">\(TTG_{0.95}: 25.1739196284092\)</span></li>
 </ul></li>
-<li>Time to Maturity (TTM) (1 stage)
+<li>Time To Maturity (TTM)
 <ul>
-<li><span class="math inline">\(TTM_\mu = 3.4133333\)</span></li>
-<li><span class="math inline">\(TTM_M = 1.3477079\)</span></li>
-<li><span class="math inline">\(TTM_{0.05} = 0\)</span></li>
-<li><span class="math inline">\(TTM_{0.10} = 0\)</span></li>
-<li><span class="math inline">\(TTM_{0.90} = 13.0916667\)</span></li>
-<li><span class="math inline">\(TTM_{0.95} = 23.8466667\)</span></li>
-</ul></li>
-<li>Time to Maturity (TTM) (11 stages)
-<ul>
-<li><span class="math inline">\(TTM_\mu = 3.4133333\)</span></li>
-<li><span class="math inline">\(TTM_M = 1.3477079\)</span></li>
-<li><span class="math inline">\(TTM_{0.05} = 0\)</span></li>
-<li><span class="math inline">\(TTM_{0.10} = 0\)</span></li>
-<li><span class="math inline">\(TTM_{0.90} = 13.0916667\)</span></li>
-<li><span class="math inline">\(TTM_{0.95} = 23.8466667\)</span></li>
+<li><span class="math inline">\(TTM_M: 1.34770794915072\)</span></li>
+<li><span class="math inline">\(TTM_\mu: 3.41333333333333\)</span></li>
+<li><span class="math inline">\(TTM_{0.05}: 0.00738014837641722\)</span></li>
+<li><span class="math inline">\(TTM_{0.10}: 0.0311385658284121\)</span></li>
+<li><span class="math inline">\(TTM_{0.90}: 14.8722334214156\)</span></li>
+<li><span class="math inline">\(TTM_{0.95}: 25.1739196284092\)</span></li>
 </ul></li>
 <li>Expected Crop Output (ECO)
 <ul>
-<li><span class="math inline">\(ECO_\mu = 0.2929688\)</span></li>
-<li><span class="math inline">\(ECO_M = 0.7420005\)</span></li>
-</ul></li>
-<li>Net Smelting Gain (NSG)
-<ul>
-<li><span class="math inline">\(NSG(Bamboo \rightarrow Bamboo) = 0.25\)</span></li>
-<li><span class="math inline">\(NSG(Bamboo \rightarrow Stick) = 0.25\)</span></li>
-<li><span class="math inline">\(NSG(Bamboo \rightarrow Planks) = 0.3333333\)</span></li>
-</ul></li>
-<li>Perpetual Furnace Index (PFI) <em>raw bamboo</em>
-<ul>
-<li><span class="math inline">\(PFI_\mu = 81.92\)</span></li>
-<li><span class="math inline">\(PFI_M = 32.3449908\)</span></li>
+<li><span class="math inline">\(TTM_M: 0.742000520684147\)</span></li>
+<li><span class="math inline">\(TTM_\mu: 0.29296875\)</span></li>
 </ul></li>
 </ul>
 </div>
@@ -204,10 +185,10 @@
 </div>
 <div id="optimizing-timed-harvests" class="section level2" number="9.3">
 <h2><span class="header-section-number">9.3</span> Optimizing Timed Harvests</h2>
-<p>Suppose bamboo farm is designed with the intent to perform a timed harvest. That is, the player does not wish to user observer blocks to initiate the harvest, but instead wishes to use a timed device. The player also recognizes that if bamboo is left to grow beyond its eleventh growth cycle, there is potential for it to stop growing and reduce the yield of the farm. In order to reduce loss of yield, it is decided that the harvest action will occur at the time that ten percent of the bamboo plants have reach tenth growth stage–where the bamboo is at a total height of eleven blocks and yields ten crops.</p>
-<p>This design allows for only ten percent of the bamboo plants the opportunity to reach a height at which they may stop growing. The time between harvests can be calculated as the time to maturity for bamboo with ten growth stages.</p>
-<p><span class="math display">\[ TTM_{0.10} = 0\]</span></p>
-<p>The player should set the harvest clock for about 3.6 minutes, or 3 minutes and 36 seconds.</p>
+<p>Suppose bamboo farm is designed with the intent to perform a timed harvest. That is, the player does not wish to user observer blocks to initiate the harvest, but instead wishes to use a timed device. The player also recognizes that if bamboo is left to grow beyond its eleventh growth cycle, there is potential for it to stop growing and reduce the yield of the farm. In order to reduce loss of yield, it is decided that the harvest action will occur at the time that twenty five percent of the bamboo plants have reached the tenth growth stage–where the bamboo is at a total height of eleven blocks and yields ten crops.</p>
+<p>This design allows for only twenty five percent of the bamboo plants the opportunity to reach a height at which they may stop growing. The time between harvests can be calculated as the time to maturity for bamboo with ten growth stages.</p>
+<p><span class="math display">\[TTM_{0.25} = 2.32151\]</span></p>
+<p>The player should set the harvest clock for about 2.32151 minutes, or 2 minutes and 19 seconds.</p>
 </div>
 <div id="bamboo-as-fuel" class="section level2" number="9.4">
 <h2><span class="header-section-number">9.4</span> Bamboo as Fuel</h2>
@@ -219,8 +200,8 @@
 <th align="right">NRaw</th>
 <th align="right">SmeltCrafted</th>
 <th align="left">NSG</th>
-<th align="left">PFI_Mean</th>
 <th align="left">PFI_Median</th>
+<th align="left">PFI_Mean</th>
 </tr>
 </thead>
 <tbody>
@@ -230,8 +211,8 @@
 <td align="right">1</td>
 <td align="right">0.25</td>
 <td align="left">0.250</td>
-<td align="left">81.920</td>
 <td align="left">32.345</td>
+<td align="left">81.920</td>
 </tr>
 <tr class="even">
 <td align="left">Bamboo</td>
@@ -239,8 +220,8 @@
 <td align="right">2</td>
 <td align="right">0.50</td>
 <td align="left">0.250</td>
-<td align="left">81.920</td>
 <td align="left">32.345</td>
+<td align="left">81.920</td>
 </tr>
 <tr class="odd">
 <td align="left">Bamboo</td>
@@ -248,8 +229,8 @@
 <td align="right">9</td>
 <td align="right">3.00</td>
 <td align="left">0.333</td>
-<td align="left">61.440</td>
 <td align="left">24.259</td>
+<td align="left">61.440</td>
 </tr>
 </tbody>
 </table>

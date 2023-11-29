@@ -30,8 +30,8 @@ pr_growth <- 0.14
 * Net Smelting Gain (NSG)
     + $NSG(Kelp \rightarrow Dried Kelp Block) = `r NSG(20, 9, 9)`$
 * Perpetual Furnace Index (PFI) _Dried Kelp Block_
-    + $PFI_\mu = `r PFI(NSG(20, 9, 9), ECO_MEAN(1, pr_growth, stage), 1)`$
-    + $PFI_M = `r PFI(NSG(20, 9, 9), ECO_MEDIAN(1, pr_growth, stage), 1)`$
+    + $PFI_\mu = `r PFI(NSG(20, 9, 9), ECO_MEAN(1, pr_growth, stage))`$
+    + $PFI_M = `r PFI(NSG(20, 9, 9), ECO_MEDIAN(1, pr_growth, stage))`$
 
 ## Growth Stages
 

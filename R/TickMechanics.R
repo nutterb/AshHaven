@@ -55,5 +55,5 @@ ttrt <- function(random_tick_speed = getOption("randomTickSpeed", 3),
   switch(method, 
          "mean" = 1 / P_RTICK,
          "median" = -1 / (log2(1 - P_RTICK)), 
-         "quantile" = qgeom(p, prob = P_RTICK))
+         "quantile" = geom_quantile(p, growth_probability = P_RTICK))
 }

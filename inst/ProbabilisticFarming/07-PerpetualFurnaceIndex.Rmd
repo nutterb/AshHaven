@@ -3,24 +3,25 @@
 The Perpetual Furnace Index (PFI) is the number blocks of farm that are required to maintain continuous and uninterupted operation of a single furnace in a self sufficient manner. Furnaces smelt six items per minute, so this is the number of blocks of farm required to provide enough fuel to smelt six items per minute. The PFI must also account for raw materials required to convert itself into fuel. 
 
 $$\begin{aligned}
-& &                     6 &= \frac{PFI}{CC} \cdot ECO \cdot NSG \\ 
-&\Rightarrow & \frac{6 \cdot CC}{ECO \cdot NSG} &= PFI 
+& &                     6 &= PFI \cdot ECO \cdot NSG \\ 
+&\Rightarrow & \frac{6}{ECO \cdot NSG} &= PFI 
 \end{aligned}$$
 
 Where
 
-* $CC$ is the number of items consumed in crafting the fuel
 * $ECO$ is the Expected Crop Output
 * $NSG$ is the Net Smelting Gain
 
+In this formula, $ECO$ is the number of crops expected from a block per minute, and $NSG$ is the gain of smeltable items for that crop. Multiplying them gives the number of smeltable items gained in a minute. Balancing the equation for $PFI$ gives the number of blocks required to smelt six items per minute.
+
 ## Mean Perpetual Furnace Index 
 
-$$PFI_\mu = \frac{6 \cdot CC}{ECO_\mu \cdot NSG}$$
+$$PFI_\mu = \frac{6}{ECO_\mu \cdot NSG}$$
 
 ## Median Perpetual Furnace Index 
 
-$$PFI_M = \frac{6 \cdot CC}{ECO_M \cdot NSG}$$
+$$PFI_M = \frac{6}{ECO_M \cdot NSG}$$
 
 ## Quantiles of Perpetual Furnace Index 
 
-$$PFI_p = \frac{6 \cdot CC}{ECO_p \cdot NSG}$$
+$$PFI_p = \frac{6}{ECO_p \cdot NSG}$$

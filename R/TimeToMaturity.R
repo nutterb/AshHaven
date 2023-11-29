@@ -10,6 +10,7 @@
 #' @param stages `integerish(1)`. The number of growth stages a crop requires
 #' before becoming mature.
 #'   
+#' @export
 
 time_to_maturity <- function(growth_probability, 
                              stages = 1,

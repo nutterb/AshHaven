@@ -8,7 +8,8 @@
 #' @inheritParams TimeToMaturity
 #' @param yield `numeric(1)`. The number of times returned by harvesting
 #'   a crop. This may be an average and need not be a whole number.
-#'   
+#'  
+#' @export 
 
 expected_crop_output <- function(yield, 
                                  growth_probability, 

@@ -185,7 +185,7 @@ TTR_M &amp;= \frac{-1}{\log_2(1 - p)}  \\
 <div id="distributional-background-of-ticks" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Distributional Background of Ticks</h2>
 <p>The probability distribution of time to the next random tick is shown in the following plot.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Since players do not tend to think in terms of ticks, the mean time to the next random tick assignment is translated into player friendly time formats in the following table. The columns to the right of the mean show various quantiles. In the <code>p_025</code> column, 2.5% of the time, the next random tick will be assigned in less than 1.7 seconds. The median time to the next random tick assignment is give in the <code>p_500</code> column.</p>
 <table>
 <thead>
@@ -268,7 +268,7 @@ TTR_M &amp;= \frac{-1}{\log_2(1 - p)}  \\
 <div id="number-of-random-ticks-assigned" class="section level3" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Number of Random Ticks Assigned</h3>
 <p>Another metric of interest to the player may, at times, be the number of random ticks assigned within a certain time frame. This metric can be modeled using a Binomial distribution with the parameters <span class="math inline">\(p = 7.3242188\times 10^{-4}\)</span> and <span class="math inline">\(n\)</span> is equal to the number of ticks in time time period of interest. The mean of the Binomial distribution is <span class="math inline">\(n \cdot p\)</span> with a standard deviation of <span class="math inline">\(\sqrt{n \cdot p \cdot (1 - p)}\)</span>. With 1200 ticks occurring each minute, the mean number of random ticks assigned to a block within a minutes is <span class="math inline">\(\mu = 0.8789062\)</span> with standard deviation <span class="math inline">\(\sigma = 0.9371566\)</span>.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Another way to interpret this is that 58.49% of blocks receive at least one random tick during each minute.</p>
 </div>
 </div>

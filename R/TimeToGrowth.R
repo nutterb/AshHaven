@@ -18,6 +18,7 @@
 #' @param unit `character(1)`. One of `c("tick", "second", "minute", "hour")`.
 #'   The unit of time for the metric. 
 #' 
+#' @export
 
 time_to_growth <- function(growth_probability,
                            p = 0.5,
@@ -54,5 +55,5 @@ time_to_growth <- function(growth_probability,
   switch(method, 
          "mean" = (ttrt(method = "mean") / growth_probability) / ticks, 
          "median" = (-1 * ttrt(method = "median") / (log2(1 - growth_probability))) / ticks, 
-         "quantile" = (ttrt(p = p, method = method) * qgeom(p, prob = growth_probability)) / ticks)
+         "quantile" = (ttrt(p = p, method = method) * geom_quantile(p, growth_probability = growth_probability)) / ticks)
 }

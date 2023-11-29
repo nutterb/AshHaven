@@ -3,44 +3,16 @@
 ## Farm Metrics
 
 ```{r}
-stage = 1
-yield = 1
+stages <- 1
+yield <- 1
 pr_growth <- 1/3
 ```
 
-* Growth Stages: `r stage` (kind of)
-* $\Pr(Growth | RTick) = `r pr_growth`$
-* Time to Growth (TTG)
-    + $TTG_\mu = `r TTG_MEAN(pr_growth)`$
-    + $TTG_M = `r TTG_MEDIAN(pr_growth)`$
-    + $TTG_{0.05} = `r TTG_Q(0.05, pr_growth)`$
-    + $TTG_{0.10} = `r TTG_Q(0.10, pr_growth)`$
-    + $TTG_{0.90} = `r TTG_Q(0.90, pr_growth)`$
-    + $TTG_{0.95} = `r TTG_Q(0.95, pr_growth)`$
-* Time to Maturity (TTM) (1 stage)
-    + $TTM_\mu = `r TTM_MEAN(pr_growth, stage = stage)`$
-    + $TTM_M = `r TTM_MEDIAN(pr_growth, stage = stage)`$
-    + $TTM_{0.05} = `r TTM_Q(0.05, pr_growth, stage = stage)`$
-    + $TTM_{0.10} = `r TTM_Q(0.10, pr_growth, stage = stage)`$
-    + $TTM_{0.90} = `r TTM_Q(0.90, pr_growth, stage = stage)`$
-    + $TTM_{0.95} = `r TTM_Q(0.95, pr_growth, stage = stage)`$
-* Time to Maturity (TTM) (11 stages)
-    + $TTM_\mu = `r TTM_MEAN(pr_growth, stage = stage)`$
-    + $TTM_M = `r TTM_MEDIAN(pr_growth, stage = stage)`$
-    + $TTM_{0.05} = `r TTM_Q(0.05, pr_growth, stage = stage)`$
-    + $TTM_{0.10} = `r TTM_Q(0.10, pr_growth, stage = stage)`$
-    + $TTM_{0.90} = `r TTM_Q(0.90, pr_growth, stage = stage)`$
-    + $TTM_{0.95} = `r TTM_Q(0.95, pr_growth, stage = stage)`$
-* Expected Crop Output (ECO)
-    + $ECO_\mu = `r ECO_MEAN(1, pr_growth, stage)`$
-    + $ECO_M = `r ECO_MEDIAN(1, pr_growth, stage)`$
-* Net Smelting Gain (NSG)
-    + $NSG(Bamboo \rightarrow Bamboo) = `r NSG(0.25, 0, 1)`$
-    + $NSG(Bamboo \rightarrow Stick) = `r NSG(0.5, 0, 2)`$
-    + $NSG(Bamboo \rightarrow Planks) = `r NSG(3, 0, 9)`$
-* Perpetual Furnace Index (PFI) _raw bamboo_
-    + $PFI_\mu = `r PFI(NSG(0.25, 0, 1), ECO_MEAN(1, pr_growth, stage), 1)`$
-    + $PFI_M = `r PFI(NSG(0.25, 0, 1), ECO_MEDIAN(1, pr_growth, stage), 1)`$
+```{r, results = 'asis'}
+cat(crop_summary(growth_probability = pr_growth, 
+                 yield = yield, 
+                 stages = stages))
+```
 
 
 ## Growth Stages
@@ -51,30 +23,53 @@ Players are not required to harvest at the first stage, however, and may opt to 
 
 ## Optimizing Timed Harvests
 
-Suppose bamboo farm is designed with the intent to perform a timed harvest. That is, the player does not wish to user observer blocks to initiate the harvest, but instead wishes to use a timed device. The player also recognizes that if bamboo is left to grow beyond its eleventh growth cycle, there is potential for it to stop growing and reduce the yield of the farm. In order to reduce loss of yield, it is decided that the harvest action will occur at the time that ten percent of the bamboo plants have reach tenth growth stage--where the bamboo is at a total height of eleven blocks and yields ten crops. 
+Suppose bamboo farm is designed with the intent to perform a timed harvest. That is, the player does not wish to user observer blocks to initiate the harvest, but instead wishes to use a timed device. The player also recognizes that if bamboo is left to grow beyond its eleventh growth cycle, there is potential for it to stop growing and reduce the yield of the farm. In order to reduce loss of yield, it is decided that the harvest action will occur at the time that twenty five percent of the bamboo plants have reached the tenth growth stage--where the bamboo is at a total height of eleven blocks and yields ten crops. 
 
-This design allows for only ten percent of the bamboo plants the opportunity to reach a height at which they may stop growing. The time between harvests can be calculated as the time to maturity for bamboo with ten growth stages. 
+This design allows for only twenty five percent of the bamboo plants the opportunity to reach a height at which they may stop growing. The time between harvests can be calculated as the time to maturity for bamboo with ten growth stages.
 
-$$ TTM_{0.10} = `r TTM_Q(0.1, 1/3, stage = 10)`$$
+```{r}
+ttm_25 <- time_to_maturity(1/3, stages = 10, p = 0.25, method = "quantile", unit = "minute")
+```
 
-The player should set the harvest clock for about 3.6 minutes, or 3 minutes and 36 seconds.
+$$TTM_{0.25} = `r ttm_25`$$
+
+The player should set the harvest clock for about `r ttm_25` minutes, or `r ttm_25 %/% 1` minutes and `r round((ttm_25 %% 1) * 60)` seconds.
 
 ## Bamboo as Fuel
 
 ```{r}
 FuelData <- "
 Raw    | Crafted | NRaw | Consumed | SmeltCrafted
-Bamboo | Bamboo  | 1    | 1        | 0.25
-Bamboo | Stick   | 2    | 1        | 0.5
-Bamboo | Planks  | 9    | 1        | 3
+Bamboo | Bamboo  | 1    | 0        | 0.25
+Bamboo | Stick   | 2    | 0        | 0.5
+Bamboo | Planks  | 9    | 0        | 3
 "
 
 FuelData <- 
     read.csv(text = FuelData, 
              sep = "|") %>% 
-    mutate(NSG = NSG(SmeltCrafted, 0, NRaw), 
-           PFI_Mean = PFI(NSG, ECO_MEAN(1, pr_growth, stage), Consumed),
-           PFI_Median = PFI(NSG, ECO_MEDIAN(1, pr_growth, stage), Consumed))
+    mutate(NSG = mapply(net_smelting_gain, 
+                        SmeltCrafted, 
+                        Consumed, 
+                        NRaw, 
+                        SIMPLIFY = TRUE), 
+           PFI_Median = mapply(perpetual_furnace_index, 
+                               SmeltCrafted, 
+                               Consumed, 
+                               NRaw, 
+                               yield = yield, 
+                               growth_probability = pr_growth,
+                               stages = stages, 
+                               SIMPLIFY = TRUE), 
+           PFI_Mean = mapply(perpetual_furnace_index, 
+                             SmeltCrafted, 
+                             Consumed, 
+                             NRaw, 
+                             yield = yield, 
+                             growth_probability = pr_growth,
+                             stages = stages,
+                             MoreArgs = list(method = "mean"),
+                             SIMPLIFY = TRUE))
 
 FuelData %>% 
     select(-Consumed) %>% 
