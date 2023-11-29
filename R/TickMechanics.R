@@ -41,7 +41,6 @@ ttrt <- function(random_tick_speed = getOption("randomTickSpeed", 3),
   checkmate::assert_integerish(x = random_tick_speed, 
                                len = 1, 
                                lower = 0, 
-                               upper = 1,
                                add = coll)
   
   method <- checkmate::matchArg(x = method, 

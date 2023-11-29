@@ -30,13 +30,13 @@ time_to_growth <- function(growth_probability,
                             lower = 0, 
                             upper = 1, 
                             add = coll)
-  
+
   checkmate::assert_numeric(x = p, 
                             len = 1, 
                             lower = 0, 
                             upper = 1, 
                             add = coll)
-  
+
   method <- checkmate::matchArg(x = method, 
                                 choices = c("median", "mean", "quantile"), 
                                 .var.name = "method", 
@@ -46,13 +46,13 @@ time_to_growth <- function(growth_probability,
                               choices = c("tick", "second", "minute", "hour"), 
                               .var.name = "unit", 
                               add = coll)
-  
+
   checkmate::reportAssertions(coll)
-  
+
   ticks <- tick_conversion(unit = unit)
-  
+
   switch(method, 
-         "mean" = (ttrt(method == "mean") / growth_probability) / ticks, 
-         "median" = (-1 * ttrt(method == "median") / (log2(1 - growth_probability))) / ticks, 
-         "quantile" = (ttrt(p = p, method) * qgeom(p, prob = growth_probability)) / ticks)
+         "mean" = (ttrt(method = "mean") / growth_probability) / ticks, 
+         "median" = (-1 * ttrt(method = "median") / (log2(1 - growth_probability))) / ticks, 
+         "quantile" = (ttrt(p = p, method = method) * qgeom(p, prob = growth_probability)) / ticks)
 }
