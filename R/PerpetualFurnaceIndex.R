@@ -21,7 +21,7 @@ perpetual_furnace_index <- function(total_smelt,
                                     yield, 
                                     growth_probability, 
                                     stages,
-                                    p, 
+                                    p = 0.5, 
                                     method = c("median", "mean", "quantile")){
   coll <- checkmate::makeAssertCollection()
   
@@ -78,5 +78,5 @@ perpetual_furnace_index <- function(total_smelt,
                            self_smelt = self_smelt, 
                            craft_consumption = craft_consumption)
   
-  (6 * craft_consumption) / (eco * nsg)
+  6 / (eco * nsg)
 }
