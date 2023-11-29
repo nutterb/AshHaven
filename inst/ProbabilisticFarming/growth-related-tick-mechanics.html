@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Growth Related Tick Mechanics | Probabilistic Minecraft Farming</title>
+  <meta name="description" content="2 Growth Related Tick Mechanics | Probabilistic Minecraft Farming" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Growth Related Tick Mechanics | Probabilistic Minecraft Farming" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Growth Related Tick Mechanics | Probabilistic Minecraft Farming" />
+  
+  
+  
+
+
+
+<meta name="date" content="2023-11-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="growth-probability.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#definitions"><i class="fa fa-check"></i><b>1.1</b> Definitions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html"><i class="fa fa-check"></i><b>2</b> Growth Related Tick Mechanics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#probability-of-random-tick-assignment"><i class="fa fa-check"></i><b>2.1</b> Probability of Random Tick Assignment</a></li>
+<li class="chapter" data-level="2.2" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#time-to-random-tick"><i class="fa fa-check"></i><b>2.2</b> Time to Random Tick</a></li>
+<li class="chapter" data-level="2.3" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#distributional-background-of-ticks"><i class="fa fa-check"></i><b>2.3</b> Distributional Background of Ticks</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#number-of-random-ticks-assigned"><i class="fa fa-check"></i><b>2.3.1</b> Number of Random Ticks Assigned</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="growth-probability.html"><a href="growth-probability.html"><i class="fa fa-check"></i><b>3</b> Growth Probability</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="growth-probability.html"><a href="growth-probability.html#from-mean-time-to-growth"><i class="fa fa-check"></i><b>3.1</b> From Mean Time to Growth</a></li>
+<li class="chapter" data-level="3.2" data-path="growth-probability.html"><a href="growth-probability.html#from-median-time-to-growth"><i class="fa fa-check"></i><b>3.2</b> From Median Time to Growth</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="time-to-growth.html"><a href="time-to-growth.html"><i class="fa fa-check"></i><b>4</b> Time to Growth</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="time-to-growth.html"><a href="time-to-growth.html#mean-time-to-growth"><i class="fa fa-check"></i><b>4.1</b> Mean Time to Growth</a></li>
+<li class="chapter" data-level="4.2" data-path="time-to-growth.html"><a href="time-to-growth.html#median-time-to-growth"><i class="fa fa-check"></i><b>4.2</b> Median Time to Growth</a></li>
+<li class="chapter" data-level="4.3" data-path="time-to-growth.html"><a href="time-to-growth.html#time-to-growth-quantiles"><i class="fa fa-check"></i><b>4.3</b> Time To Growth Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="time-to-maturity.html"><a href="time-to-maturity.html"><i class="fa fa-check"></i><b>5</b> Time to Maturity</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="time-to-maturity.html"><a href="time-to-maturity.html#mean-time-to-maturity"><i class="fa fa-check"></i><b>5.1</b> Mean Time to Maturity</a></li>
+<li class="chapter" data-level="5.2" data-path="time-to-maturity.html"><a href="time-to-maturity.html#median-time-to-maturity"><i class="fa fa-check"></i><b>5.2</b> Median Time To Maturity</a></li>
+<li class="chapter" data-level="5.3" data-path="time-to-maturity.html"><a href="time-to-maturity.html#time-to-maturity-quantiles"><i class="fa fa-check"></i><b>5.3</b> Time to Maturity Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="expected-crop-output.html"><a href="expected-crop-output.html"><i class="fa fa-check"></i><b>6</b> Expected Crop Output</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="expected-crop-output.html"><a href="expected-crop-output.html#mean-expected-crop-output"><i class="fa fa-check"></i><b>6.1</b> Mean Expected Crop Output</a></li>
+<li class="chapter" data-level="6.2" data-path="expected-crop-output.html"><a href="expected-crop-output.html#median-expected-crop-output"><i class="fa fa-check"></i><b>6.2</b> Median Expected Crop Output</a></li>
+<li class="chapter" data-level="6.3" data-path="expected-crop-output.html"><a href="expected-crop-output.html#quantiles-of-expected-crop-output"><i class="fa fa-check"></i><b>6.3</b> Quantiles of Expected Crop Output</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="net-smelting-gain.html"><a href="net-smelting-gain.html"><i class="fa fa-check"></i><b>7</b> Net Smelting Gain</a></li>
+<li class="chapter" data-level="8" data-path="perpetual-furnace-index.html"><a href="perpetual-furnace-index.html"><i class="fa fa-check"></i><b>8</b> Perpetual Furnace Index</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="perpetual-furnace-index.html"><a href="perpetual-furnace-index.html#mean-perpetual-furnace-index"><i class="fa fa-check"></i><b>8.1</b> Mean Perpetual Furnace Index</a></li>
+<li class="chapter" data-level="8.2" data-path="perpetual-furnace-index.html"><a href="perpetual-furnace-index.html#median-perpetual-furnace-index"><i class="fa fa-check"></i><b>8.2</b> Median Perpetual Furnace Index</a></li>
+<li class="chapter" data-level="8.3" data-path="perpetual-furnace-index.html"><a href="perpetual-furnace-index.html#quantiles-of-perpetual-furnace-index"><i class="fa fa-check"></i><b>8.3</b> Quantiles of Perpetual Furnace Index</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="bamboo-farming.html"><a href="bamboo-farming.html"><i class="fa fa-check"></i><b>9</b> Bamboo Farming</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="bamboo-farming.html"><a href="bamboo-farming.html#farm-metrics"><i class="fa fa-check"></i><b>9.1</b> Farm Metrics</a></li>
+<li class="chapter" data-level="9.2" data-path="bamboo-farming.html"><a href="bamboo-farming.html#growth-stages"><i class="fa fa-check"></i><b>9.2</b> Growth Stages</a></li>
+<li class="chapter" data-level="9.3" data-path="bamboo-farming.html"><a href="bamboo-farming.html#optimizing-timed-harvests"><i class="fa fa-check"></i><b>9.3</b> Optimizing Timed Harvests</a></li>
+<li class="chapter" data-level="9.4" data-path="bamboo-farming.html"><a href="bamboo-farming.html#bamboo-as-fuel"><i class="fa fa-check"></i><b>9.4</b> Bamboo as Fuel</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="kelp-farming.html"><a href="kelp-farming.html"><i class="fa fa-check"></i><b>10</b> Kelp Farming</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="kelp-farming.html"><a href="kelp-farming.html#farm-metrics-1"><i class="fa fa-check"></i><b>10.1</b> Farm Metrics</a></li>
+<li class="chapter" data-level="10.2" data-path="kelp-farming.html"><a href="kelp-farming.html#growth-stages-1"><i class="fa fa-check"></i><b>10.2</b> Growth Stages</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="wheat-farming.html"><a href="wheat-farming.html"><i class="fa fa-check"></i><b>11</b> Wheat Farming</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="wheat-farming.html"><a href="wheat-farming.html#farm-metrics-2"><i class="fa fa-check"></i><b>11.1</b> Farm Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="wheat-seed-farming.html"><a href="wheat-seed-farming.html"><i class="fa fa-check"></i><b>12</b> Wheat Seed Farming</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="wheat-seed-farming.html"><a href="wheat-seed-farming.html#farm-metrics-3"><i class="fa fa-check"></i><b>12.1</b> Farm Metrics</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probabilistic Minecraft Farming</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="growth-related-tick-mechanics" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Growth Related Tick Mechanics</h1>
+<p>Timed mechanics in Minecraft are operated on a <em>tick</em> system.</p>
+<blockquote>
+<p>A game tick is where Minecraft’s game loop runs once. The game normally runs at a fixed rate of 20 ticks per second, so one tick happens every 0.05 seconds (<a href="https://minecraft.fandom.com/wiki/Tick#Game_tick" class="uri">https://minecraft.fandom.com/wiki/Tick#Game_tick</a>)</p>
+</blockquote>
+<p>Whereas this document is focused in growth mechanics, no time will be spent discussing the many operations performed in a tick. The reader is encouraged to refer to the Minecraft wiki for more details about ticks.</p>
+<p>The operation of a tick that is of interest to this document is the <em>random tick</em>. A random tick is not a unit of time, as is the case with a tick, but is the assignment of an attribute or state to a randomly selected block. A selected block is said to “receive a random tick.”</p>
+<p>Minecraft worlds are subdivided into <em>chunks</em>, or vertical columns that are each 16 blocks square.</p>
+<blockquote>
+<p>Chunks consist of one subchunk per 16 blocks of height, each one being a 16 × 16 × 16 = 4096 block cube. Sections are distributed vertically starting at the lowest y level. Every chunk tick, some blocks are chosen at random from each section in the chunk. The blocks at those positions are given a “random tick”.</p>
+</blockquote>
+<blockquote>
+<p>In Java Edition, the number of blocks chosen from each section is specified by /gamerule randomTickSpeed (defaults to 3), and one block can be chosen multiple times in one chunk tick. (<a href="https://minecraft.fandom.com/wiki/Tick#Random_tick" class="uri">https://minecraft.fandom.com/wiki/Tick#Random_tick</a>)</p>
+</blockquote>
+<div id="probability-of-random-tick-assignment" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Probability of Random Tick Assignment</h2>
+<p>Mathematically speaking, the blocks chosen to receive a random tick are randomly selected with replacement from the allotment of 4,096 blocks. Based on this information, the probability that any single block is chosen for a random tick within any chunk tick is</p>
+<p><span class="math display">\[ \Pr(RTick) = \frac{3}{16 \cdot 16 \cdot 16} = \frac{3}{4096} \approx 7.3242188\times 10^{-4}  \]</span></p>
+</div>
+<div id="time-to-random-tick" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Time to Random Tick</h2>
+<p>The Time to Random Tick (TTR) is a measure of how much time passes between a block receiving random ticks. Because these times are based on game mechanics, they are constant and uninfluenced by the specific mechanics of any crop.</p>
+<p>The mean TTR, denoted <span class="math inline">\(TTR_\mu\)</span>, gives the mean time between random tick assignments. It is based on the mean of the Geometric distribution with parameter <span class="math inline">\(p = \Pr(RTick)\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+TTR_\mu &amp;= \frac{1}{\Pr(RTick)}  \\
+        &amp;= \frac{1}{7.3242188\times 10^{-4}} \\
+        &amp;\approx 1365.3333333
+\end{aligned}\]</span></p>
+<p>The median TTR, denoted <span class="math inline">\(TTR_M\)</span>, gives the median time between random tick assignments. Fifty percent of random ticks will be assigned in less time that <span class="math inline">\(TTR_M\)</span> and fifty percent will be assigned in more than <span class="math inline">\(TTR_M\)</span>. Because the Geometric distribution is a right skewed distribution, the median is somewhat lower than the mean. It follows, then, that <span class="math inline">\(TTR_M\)</span> &lt; <span class="math inline">\(TTR_\mu\)</span>. Calculations of crop yield will differ depending on whether the calculations are based on <span class="math inline">\(TTR_\mu\)</span> or <span class="math inline">\(TTR_M\)</span>, with <span class="math inline">\(TTR_\mu\)</span> being more conservative (lower).</p>
+<p><span class="math display">\[\begin{aligned}
+TTR_M &amp;= \frac{-1}{\log_2(1 - p)}  \\
+      &amp;= \frac{-1}{\log_2(1 - \Pr(RTick)} \\
+      &amp;\approx 946.0303346
+\end{aligned}\]</span></p>
+<p>It is also possible to calculate various quantiles of TTR, denoted <span class="math inline">\(TTR_p\)</span>. The formulae for these equations are not simple, but computer algorithms exist that can efficiently produce these results. This document uses R software to calculate quantiles when needed.</p>
+</div>
+<div id="distributional-background-of-ticks" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Distributional Background of Ticks</h2>
+<p>The probability distribution of time to the next random tick is shown in the following plot.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Since players do not tend to think in terms of ticks, the mean time to the next random tick assignment is translated into player friendly time formats in the following table. The columns to the right of the mean show various quantiles. In the <code>p_025</code> column, 2.5% of the time, the next random tick will be assigned in less than 1.7 seconds. The median time to the next random tick assignment is give in the <code>p_500</code> column.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">unit</th>
+<th align="right">conversion</th>
+<th align="right">mean</th>
+<th align="right">p_025</th>
+<th align="right">p_050</th>
+<th align="right">p_010</th>
+<th align="right">p_500</th>
+<th align="right">p_900</th>
+<th align="right">p_950</th>
+<th align="right">p_975</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">tick</td>
+<td align="right">1</td>
+<td align="right">1365.33</td>
+<td align="right">34.00</td>
+<td align="right">70.00</td>
+<td align="right">143.00</td>
+<td align="right">946.00</td>
+<td align="right">3142.00</td>
+<td align="right">4088.00</td>
+<td align="right">5034.0</td>
+</tr>
+<tr class="even">
+<td align="left">milliseconds</td>
+<td align="right">5</td>
+<td align="right">273.07</td>
+<td align="right">6.80</td>
+<td align="right">14.00</td>
+<td align="right">28.60</td>
+<td align="right">189.20</td>
+<td align="right">628.40</td>
+<td align="right">817.60</td>
+<td align="right">1006.8</td>
+</tr>
+<tr class="odd">
+<td align="left">seconds</td>
+<td align="right">20</td>
+<td align="right">68.27</td>
+<td align="right">1.70</td>
+<td align="right">3.50</td>
+<td align="right">7.15</td>
+<td align="right">47.30</td>
+<td align="right">157.10</td>
+<td align="right">204.40</td>
+<td align="right">251.7</td>
+</tr>
+<tr class="even">
+<td align="left">minutes</td>
+<td align="right">1200</td>
+<td align="right">1.14</td>
+<td align="right">0.03</td>
+<td align="right">0.06</td>
+<td align="right">0.12</td>
+<td align="right">0.79</td>
+<td align="right">2.62</td>
+<td align="right">3.41</td>
+<td align="right">4.2</td>
+</tr>
+<tr class="odd">
+<td align="left">hours</td>
+<td align="right">7200</td>
+<td align="right">0.19</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.02</td>
+<td align="right">0.13</td>
+<td align="right">0.44</td>
+<td align="right">0.57</td>
+<td align="right">0.7</td>
+</tr>
+</tbody>
+</table>
+<div id="number-of-random-ticks-assigned" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Number of Random Ticks Assigned</h3>
+<p>Another metric of interest to the player may, at times, be the number of random ticks assigned within a certain time frame. This metric can be modeled using a Binomial distribution with the parameters <span class="math inline">\(p = 7.3242188\times 10^{-4}\)</span> and <span class="math inline">\(n\)</span> is equal to the number of ticks in time time period of interest. The mean of the Binomial distribution is <span class="math inline">\(n \cdot p\)</span> with a standard deviation of <span class="math inline">\(\sqrt{n \cdot p \cdot (1 - p)}\)</span>. With 1200 ticks occurring each minute, the mean number of random ticks assigned to a block within a minutes is <span class="math inline">\(\mu = 0.8789062\)</span> with standard deviation <span class="math inline">\(\sigma = 0.9371566\)</span>.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Another way to interpret this is that 58.49% of blocks receive at least one random tick during each minute.</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="growth-probability.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"theme": "united",
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
