@@ -5,6 +5,7 @@
 #'   Each tick lasts 0.05 seconds. Players normally interpret game mechanics
 #'   in terms of seconds, minutes, or hours. 
 #'   
+#' @inheritParams TimeToGrowth
 #' 
 #' @export
 

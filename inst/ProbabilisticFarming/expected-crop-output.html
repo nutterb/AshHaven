@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Expected Crop Output | Probabilistic Minecraft Farming</title>
   <meta name="description" content="6 Expected Crop Output | Probabilistic Minecraft Farming" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Expected Crop Output | Probabilistic Minecraft Farming" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -21,6 +20,7 @@
   
   
 
+<meta name="author" content="" />
 
 
 <meta name="date" content="2023-11-29" />
@@ -32,8 +32,8 @@
   
 <link rel="prev" href="time-to-maturity.html"/>
 <link rel="next" href="net-smelting-gain.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,9 +49,16 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -145,25 +152,25 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="expected-crop-output" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Expected Crop Output</h1>
+<div id="expected-crop-output" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Expected Crop Output<a href="expected-crop-output.html#expected-crop-output" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The Expected Crop Output (ECO) is a measure of how much crop is produced by a single block of farm per minute. In usual statistics terms, “Expected Crop Output” would normally relate to the expected value of a distribution. Such an interpretation is unnecessary here, and the notation in use in previous sections will be utilized to distinguish mean ECO (<span class="math inline">\(ECO_\mu\)</span>) from median ECO (<span class="math inline">\(ECO_M\)</span>).</p>
 <p>The ECO is a measure useful for helping to plan the size of a farm necessary to produce a desired quantity of crop. If a player wishes to fuel a furnace using bamboo, how many blocks of farmland are required to keep the furnace running at full capacity, for example. The ECO is calculated from Time to Maturity (TTM) and the number of crop yielded (<span class="math inline">\(y\)</span>).</p>
 <p>Some crops will drop a variable number of items. Wheat harvest, for example, will drop anywhere from 1 to 4 seeds. The Minecraft Wiki for <a href="https://minecraft.fandom.com/wiki/Wheat#Farming">Wheat</a> reports an average of 2.714286 seeds per harvested wheat. This value may be used for <span class="math inline">\(y\)</span>.</p>
-<div id="mean-expected-crop-output" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Mean Expected Crop Output</h2>
+<div id="mean-expected-crop-output" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Mean Expected Crop Output<a href="expected-crop-output.html#mean-expected-crop-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><span class="math display">\[\begin{aligned}
 ECO_\mu &amp;= \frac{y}{TTM_\mu}
 \end{aligned}\]</span></p>
 </div>
-<div id="median-expected-crop-output" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Median Expected Crop Output</h2>
+<div id="median-expected-crop-output" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Median Expected Crop Output<a href="expected-crop-output.html#median-expected-crop-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><span class="math display">\[\begin{aligned}
 ECO_M &amp;= \frac{y}{TTM_M}
 \end{aligned}\]</span></p>
 </div>
-<div id="quantiles-of-expected-crop-output" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Quantiles of Expected Crop Output</h2>
+<div id="quantiles-of-expected-crop-output" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Quantiles of Expected Crop Output<a href="expected-crop-output.html#quantiles-of-expected-crop-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><span class="math display">\[\begin{aligned}
 ECO_p &amp;= \frac{y}{TTM_p}
 \end{aligned}\]</span></p>
@@ -179,7 +186,6 @@ ECO_p &amp;= \frac{y}{TTM_p}
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -198,6 +204,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -218,12 +225,12 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": false,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
 },
-"theme": "united",
-"search": false
+"theme": "united"
 });
 });
 </script>
@@ -234,7 +241,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

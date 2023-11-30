@@ -29,8 +29,8 @@ test_that(
                  1 / p_rtick(4))
     
     expect_equal(ttrt(p = .25, method = "quantile"), 
-                 qgeom(.25, prob = p_rtick()))
+                 geom_quantile(.25, growth_probability = p_rtick()))
     expect_equal(ttrt(4, p = .25, method = "quantile"), 
-                 qgeom(.25, prob = p_rtick(4)))
+                 geom_quantile(.25, growth_probability = p_rtick(4)))
   }
 )

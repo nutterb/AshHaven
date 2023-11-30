@@ -12,6 +12,7 @@
 #' @inheritParams NetSmeltingGain
 #' @inheritParams TimeToGrowth
 #' @inheritParams TimeToMaturity
+#' @inheritParams ExpectedCropOutput
 #' 
 #' @export 
 

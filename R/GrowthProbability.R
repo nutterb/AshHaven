@@ -43,5 +43,13 @@ growth_probability <- function(ttg,
   
   switch(method, 
          "mean" = ttrt(method = "mean") / (tick_convert * ttg), 
-         "median" = 2 ^ (1 / ttg))
+         "median" = 1 - 2 ^ (-ttrt()/ (ttg)))
+}
+
+.growth_probability_median <- function(ttg){
+  f <- function(gp, m) m - (-1 / (log2(1 - p)) - 1)
+  
+  stats::uniroot(f, 
+                 interval = c(0.001, .999),
+                 m = ttg)$root
 }

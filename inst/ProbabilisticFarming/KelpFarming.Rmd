@@ -3,35 +3,24 @@
 ## Farm Metrics
 
 ```{r}
-stage <- 1
+stages <- 1
 yield <- 1
 pr_growth <- 0.14
 ```
 
-* Growth Stages: `r stage` (kind of)
-* $\Pr(Growth | RTick) = `r pr_growth`$
-* Time to Growth (TTG)
-    + $TTG_\mu = `r TTG_MEAN(pr_growth)`$
-    + $TTG_M = `r TTG_MEDIAN(pr_growth)`$
-    + $TTG_{0.05} = `r TTG_Q(0.05, pr_growth)`$
-    + $TTG_{0.10} = `r TTG_Q(0.10, pr_growth)`$
-    + $TTG_{0.90} = `r TTG_Q(0.90, pr_growth)`$
-    + $TTG_{0.95} = `r TTG_Q(0.95, pr_growth)`$
-* Time to Maturity (TTM) (1 stage)
-    + $TTM_\mu = `r TTM_MEAN(pr_growth, stage = stage)`$
-    + $TTM_M = `r TTM_MEDIAN(pr_growth, stage = stage)`$
-    + $TTM_{0.05} = `r TTM_Q(0.05, pr_growth, stage = stage)`$
-    + $TTM_{0.10} = `r TTM_Q(0.10, pr_growth, stage = stage)`$
-    + $TTM_{0.90} = `r TTM_Q(0.90, pr_growth, stage = stage)`$
-    + $TTM_{0.95} = `r TTM_Q(0.95, pr_growth, stage = stage)`$
-* Expected Crop Output (ECO)
-    + $ECO_\mu = `r ECO_MEAN(1, pr_growth, stage)`$
-    + $ECO_M = `r ECO_MEDIAN(1, pr_growth, stage)`$
-* Net Smelting Gain (NSG)
-    + $NSG(Kelp \rightarrow Dried Kelp Block) = `r NSG(20, 9, 9)`$
-* Perpetual Furnace Index (PFI) _Dried Kelp Block_
-    + $PFI_\mu = `r PFI(NSG(20, 9, 9), ECO_MEAN(1, pr_growth, stage))`$
-    + $PFI_M = `r PFI(NSG(20, 9, 9), ECO_MEDIAN(1, pr_growth, stage))`$
+```{r, results = 'asis'}
+cat(crop_summary(growth_probability = pr_growth, 
+                 yield = yield, 
+                 stages = stages))
+cat("\n")
+cat(smelt_summary(total_smelt = 20, 
+                  self_smelt = 9, 
+                  craft_consumption = 9, 
+                  yield = yield, 
+                  growth_probability = pr_growth, 
+                  stages = stages, 
+                  label = "Kelp -> Dried Kelp Block"))
+```
 
 ## Growth Stages
 
@@ -42,7 +31,8 @@ Anytime a kelp plant is broken at any level above the bottom level, its age is a
 In a farm design that utilizes a long period between harvests, the potential for crop production is impacted by the randomized age. Due to the uniform distribution of age, the loss is linear. This loss is illustrated in the plot below. The impact on the farm is that shorter plants have the most potential for crop production. The practical value of this information is that harvesting should happen at as low a position height on the kelp plant as possible, preferably at level 2. Additionally, timing between harvests should be short enough to only anticipate one to three kelp per plant (that is, one to three times the TTM) to prevent loss of production due to kelp plants reaching their maximum height early in the harvest cycle.
 
 ```{r}
-kelp_eco <- function(pr_growth, age, height, fun = ECO_MEAN){
+kelp_eco <- function(pr_growth, age, height, 
+                     fun = expected_crop_output){
     age <- max(age, height - 1)
     eco <- fun(1, pr_growth, 1)
     
@@ -52,18 +42,18 @@ kelp_eco <- function(pr_growth, age, height, fun = ECO_MEAN){
 }
 
 KelpFrame <- 
-    expand.grid(age = c(0, 5, 10, 20, 24), 
-                height = 1:24) %>% 
-    mutate(ECO_MEAN = mapply(kelp_eco, 
+  expand.grid(age = c(0, 5, 10, 20, 24), 
+              height = 1:24) %>% 
+  mutate(ECO_MEDIAN = mapply(kelp_eco, 
                              age = age, 
                              height = height, 
                              MoreArgs = list(pr_growth = pr_growth, 
-                                             fun = ECO_MEAN), 
+                                             fun = expected_crop_output), 
                              SIMPLIFY = TRUE))
 
 ggplot(data = KelpFrame, 
        mapping = aes(x = height, 
-                     y = ECO_MEAN, 
+                     y = ECO_MEDIAN, 
                      colour = factor(age))) + 
     geom_line(size = 1.2)
 ```

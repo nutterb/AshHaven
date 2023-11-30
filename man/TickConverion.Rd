@@ -7,6 +7,10 @@
 \usage{
 tick_conversion(unit = c("tick", "second", "minute", "hour"))
 }
+\arguments{
+\item{unit}{\code{character(1)}. One of \code{c("tick", "second", "minute", "hour")}.
+The unit of time for the metric.}
+}
 \description{
 The fundamental unit of time in Minecraft is the tick.
 Each tick lasts 0.05 seconds. Players normally interpret game mechanics

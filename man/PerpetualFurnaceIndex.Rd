@@ -26,6 +26,9 @@ must be spent turn the item into fuel.}
 \item{craft_consumption}{\code{numeric(1)}. The number of the items used in
 crafting a more complex item for fuel.}
 
+\item{yield}{\code{numeric(1)}. The number of times returned by harvesting
+a crop. This may be an average and need not be a whole number.}
+
 \item{growth_probability}{\code{numeric(1)} on the interval (0, 1). The
 probability that a crop will advance a growth stage when assigned a
 random tick.}

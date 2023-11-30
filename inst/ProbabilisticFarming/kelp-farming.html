@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Kelp Farming | Probabilistic Minecraft Farming</title>
   <meta name="description" content="10 Kelp Farming | Probabilistic Minecraft Farming" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Kelp Farming | Probabilistic Minecraft Farming" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -21,6 +20,7 @@
   
   
 
+<meta name="author" content="" />
 
 
 <meta name="date" content="2023-11-29" />
@@ -32,8 +32,8 @@
   
 <link rel="prev" href="bamboo-farming.html"/>
 <link rel="next" href="wheat-farming.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,9 +49,16 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -145,53 +152,50 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="kelp-farming" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> Kelp Farming</h1>
-<div id="farm-metrics-1" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Farm Metrics</h2>
+<div id="kelp-farming" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">10</span> Kelp Farming<a href="kelp-farming.html#kelp-farming" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="farm-metrics-1" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Farm Metrics<a href="kelp-farming.html#farm-metrics-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Growth Stages: 1 (kind of)</li>
-<li><span class="math inline">\(\Pr(Growth | RTick) = 0.14\)</span></li>
-<li>Time to Growth (TTG)
+<li>Growth Stages: 1</li>
+<li><span class="math inline">\(\Pr(Growth|RTick) = 0.14\)</span></li>
+<li>Yield: 1</li>
+<li>Time To Growth (TTG)
 <ul>
-<li><span class="math inline">\(TTG_\mu = 8.1269841\)</span></li>
-<li><span class="math inline">\(TTG_M = 3.6231142\)</span></li>
-<li><span class="math inline">\(TTG_{0.05} = 0\)</span></li>
-<li><span class="math inline">\(TTG_{0.10} = 0\)</span></li>
-<li><span class="math inline">\(TTG_{0.90} = 39.275\)</span></li>
-<li><span class="math inline">\(TTG_{0.95} = 64.7266667\)</span></li>
+<li><span class="math inline">\(TTG_M: 3.62311417227361\)</span></li>
+<li><span class="math inline">\(TTG_\mu: 8.12698412698412\)</span></li>
+<li><span class="math inline">\(TTG_{0.05}: 0.0198404810207808\)</span></li>
+<li><span class="math inline">\(TTG_{0.10}: 0.0837118651800368\)</span></li>
+<li><span class="math inline">\(TTG_{0.90}: 39.9818916941463\)</span></li>
+<li><span class="math inline">\(TTG_{0.95}: 67.6763777078224\)</span></li>
 </ul></li>
-<li>Time to Maturity (TTM) (1 stage)
+<li>Time To Maturity (TTM)
 <ul>
-<li><span class="math inline">\(TTM_\mu = 8.1269841\)</span></li>
-<li><span class="math inline">\(TTM_M = 3.6231142\)</span></li>
-<li><span class="math inline">\(TTM_{0.05} = 0\)</span></li>
-<li><span class="math inline">\(TTM_{0.10} = 0\)</span></li>
-<li><span class="math inline">\(TTM_{0.90} = 39.275\)</span></li>
-<li><span class="math inline">\(TTM_{0.95} = 64.7266667\)</span></li>
+<li><span class="math inline">\(TTM_M: 3.62311417227361\)</span></li>
+<li><span class="math inline">\(TTM_\mu: 8.12698412698412\)</span></li>
+<li><span class="math inline">\(TTM_{0.05}: 0.0198404810207808\)</span></li>
+<li><span class="math inline">\(TTM_{0.10}: 0.0837118651800368\)</span></li>
+<li><span class="math inline">\(TTM_{0.90}: 39.9818916941463\)</span></li>
+<li><span class="math inline">\(TTM_{0.95}: 67.6763777078224\)</span></li>
 </ul></li>
 <li>Expected Crop Output (ECO)
 <ul>
-<li><span class="math inline">\(ECO_\mu = 0.1230469\)</span></li>
-<li><span class="math inline">\(ECO_M = 0.2760057\)</span></li>
+<li><span class="math inline">\(ECO_M: 0.276005654928746\)</span></li>
+<li><span class="math inline">\(ECO_\mu: 0.123046875\)</span></li>
 </ul></li>
-<li>Net Smelting Gain (NSG)
+<li>Smelting Metrics (Kelp -&gt; Dried Kelp Block)
 <ul>
-<li><span class="math inline">\(NSG(Kelp \rightarrow Dried Kelp Block) = 1.2222222\)</span></li>
-</ul></li>
-<li>Perpetual Furnace Index (PFI) <em>Dried Kelp Block</em>
-<ul>
-<li><span class="math inline">\(PFI_\mu = 39.8961039\)</span></li>
-<li><span class="math inline">\(PFI_M = 17.7861968\)</span></li>
+<li>NSG_M: 1.22222222222222</li>
+<li>PFI_M: 17.7861968457068</li>
 </ul></li>
 </ul>
 </div>
-<div id="growth-stages-1" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Growth Stages</h2>
+<div id="growth-stages-1" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Growth Stages<a href="kelp-farming.html#growth-stages-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When kelp is planted, it is randomly assigned an age between 0 and 24. Thereafter, each time the kelp experiences a growth event, the age is incremented by 1. The kelp will stop growing when it is either 1 block below the surface, or it reaches an age of 25. As a result, kelp can grow to be anywhere between 2 and 26 blocks tall.</p>
 <p>Anytime a kelp plant is broken at any level above the bottom level, its age is assigned a new random number between 0 and 24. This means it is fruitless to inspect plants for their age, as they routinely change when kelp are harvested. It also means the ECOs listed above are only valid for the second block of kelp, as it is the only block that is guaranteed to grow on any single kelp.</p>
 <p>In a farm design that utilizes a long period between harvests, the potential for crop production is impacted by the randomized age. Due to the uniform distribution of age, the loss is linear. This loss is illustrated in the plot below. The impact on the farm is that shorter plants have the most potential for crop production. The practical value of this information is that harvesting should happen at as low a position height on the kelp plant as possible, preferably at level 2. Additionally, timing between harvests should be short enough to only anticipate one to three kelp per plant (that is, one to three times the TTM) to prevent loss of production due to kelp plants reaching their maximum height early in the harvest cycle.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 </div>
 </div>
             </section>
@@ -204,7 +208,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -223,6 +226,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -243,12 +247,12 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": false,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
 },
-"theme": "united",
-"search": false
+"theme": "united"
 });
 });
 </script>
@@ -259,7 +263,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

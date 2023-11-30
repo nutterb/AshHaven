@@ -5,32 +5,13 @@
 Farm metrics for wheat assume ideal growing conditions for wheat.
 
 ```{r}
-stage = 8        # https://minecraft.fandom.com/wiki/Wheat#Farming
-yield = 1        # https://minecraft.fandom.com/wiki/Wheat#Farming
-pr_growth <- 1/3 # https://minecraft.fandom.com/wiki/Tutorials/Crop_farming#Growth_rate
+stages <- 8       # https://minecraft.fandom.com/wiki/Wheat#Farming
+yield <- 1        # https://minecraft.fandom.com/wiki/Wheat#Farming
+pr_growth <- 1/3  # https://minecraft.fandom.com/wiki/Tutorials/Crop_farming#Growth_rate
 ```
 
-* Growth Stages: `r stage`
-* $\Pr(Growth | RTick) = `r pr_growth`$
-* Time to Growth (TTG)
-    + $TTG_\mu = `r TTG_MEAN(pr_growth)`$
-    + $TTG_M = `r TTG_MEDIAN(pr_growth)`$
-    + $TTG_{0.05} = `r TTG_Q(0.05, pr_growth)`$
-    + $TTG_{0.10} = `r TTG_Q(0.10, pr_growth)`$
-    + $TTG_{0.90} = `r TTG_Q(0.90, pr_growth)`$
-    + $TTG_{0.95} = `r TTG_Q(0.95, pr_growth)`$
-* Time to Maturity (TTM) (8 stages)
-    + $TTM_\mu = `r TTM_MEAN(pr_growth, stage = stage)`$
-    + $TTM_M = `r TTM_MEDIAN(pr_growth, stage = stage)`$
-    + $TTM_{0.05} = `r TTM_Q(0.05, pr_growth, stage = stage)`$
-    + $TTM_{0.10} = `r TTM_Q(0.10, pr_growth, stage = stage)`$
-    + $TTM_{0.90} = `r TTM_Q(0.90, pr_growth, stage = stage)`$
-    + $TTM_{0.95} = `r TTM_Q(0.95, pr_growth, stage = stage)`$
-* Expected Crop Output (ECO)
-    + $ECO_\mu = `r ECO_MEAN(1, pr_growth, stage)`$
-    + $ECO_M = `r ECO_MEDIAN(1, pr_growth, stage)`$
-* Net Smelting Gain (NSG)
-    + N/A
-* Perpetual Furnace Index (PFI)
-    + N/A
-
+```{r, results = 'asis'}
+cat(crop_summary(growth_probability = pr_growth, 
+                 yield = yield, 
+                 stages = stages))
+```

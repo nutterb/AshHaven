@@ -18,13 +18,36 @@ The median of the Geometric distribution is calculated as
 
 $$M = \frac{-1}{\log_2(1-\Pr(Growth|RTick))}$$
 
-Solving this for $\Pr(Growth|RTick)$ gives the probability of growth on a random tick. In this formulation, $M$ is agnostic to the units of measure.
+Solving this for $\Pr(Growth|RTick)$ gives the probability of growth on a random tick. 
 
 $$\begin{aligned}
-&            &                              M &= \frac{-1}{\log_2(1-\Pr(Growth | RTick))} \\
-&\Rightarrow &  \log_2(1-\Pr(Growth | RTick)) &= \frac{-1}{M}           \\
-&\Rightarrow &          1-\Pr(Growth | RTick) &= 2^{\frac{-1}{M}}       \\
-&\Rightarrow &               2^{\frac{-1}{M}} &= \Pr(Growth | RTick)                      \\
-&\Rightarrow &            \Pr(Growth | RTick) &= 2^{\frac{-1}{M}}       \\
+&            &                \frac{M}{TTRT} &= \frac{-TTRT}{\log_2(1-\Pr(Growth | RTick))} \\
+&\Rightarrow &                             M &= \frac{-TTRT}{\log_2(1-\Pr(Growth | RTick))}     \\
+&\Rightarrow & \log_2(1-\Pr(Growth | RTick)) &= \frac{-TTRT}{M}                             \\
+&\Rightarrow &         1-\Pr(Growth | RTick) &= 2^{\frac{-TTRT}{M}}       \\
+&\Rightarrow &           2^{\frac{-TTRT}{M}} &= 1 - \Pr(Growth | RTick)                      \\
+&\Rightarrow &        \Pr(Growth | RTick)    &= 1 - 2^{\frac{-TTRT}{M}}       \\
 \end{aligned}$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

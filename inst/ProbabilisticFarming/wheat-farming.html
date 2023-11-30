@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>11 Wheat Farming | Probabilistic Minecraft Farming</title>
   <meta name="description" content="11 Wheat Farming | Probabilistic Minecraft Farming" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="11 Wheat Farming | Probabilistic Minecraft Farming" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -21,6 +20,7 @@
   
   
 
+<meta name="author" content="" />
 
 
 <meta name="date" content="2023-11-29" />
@@ -32,8 +32,8 @@
   
 <link rel="prev" href="kelp-farming.html"/>
 <link rel="next" href="wheat-seed-farming.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,9 +49,16 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -145,44 +152,37 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="wheat-farming" class="section level1" number="11">
-<h1><span class="header-section-number">11</span> Wheat Farming</h1>
-<div id="farm-metrics-2" class="section level2" number="11.1">
-<h2><span class="header-section-number">11.1</span> Farm Metrics</h2>
+<div id="wheat-farming" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">11</span> Wheat Farming<a href="wheat-farming.html#wheat-farming" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="farm-metrics-2" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Farm Metrics<a href="wheat-farming.html#farm-metrics-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Farm metrics for wheat assume ideal growing conditions for wheat.</p>
 <ul>
 <li>Growth Stages: 8</li>
-<li><span class="math inline">\(\Pr(Growth | RTick) = 0.3333333\)</span></li>
-<li>Time to Growth (TTG)
+<li><span class="math inline">\(\Pr(Growth|RTick) = 0.333333333333333\)</span></li>
+<li>Yield: 1</li>
+<li>Time To Growth (TTG)
 <ul>
-<li><span class="math inline">\(TTG_\mu = 3.4133333\)</span></li>
-<li><span class="math inline">\(TTG_M = 1.3477079\)</span></li>
-<li><span class="math inline">\(TTG_{0.05} = 0\)</span></li>
-<li><span class="math inline">\(TTG_{0.10} = 0\)</span></li>
-<li><span class="math inline">\(TTG_{0.90} = 13.0916667\)</span></li>
-<li><span class="math inline">\(TTG_{0.95} = 23.8466667\)</span></li>
+<li><span class="math inline">\(TTG_M: 1.34770794915072\)</span></li>
+<li><span class="math inline">\(TTG_\mu: 3.41333333333333\)</span></li>
+<li><span class="math inline">\(TTG_{0.05}: 0.00738014837641722\)</span></li>
+<li><span class="math inline">\(TTG_{0.10}: 0.0311385658284121\)</span></li>
+<li><span class="math inline">\(TTG_{0.90}: 14.8722334214156\)</span></li>
+<li><span class="math inline">\(TTG_{0.95}: 25.1739196284092\)</span></li>
 </ul></li>
-<li>Time to Maturity (TTM) (8 stages)
+<li>Time To Maturity (TTM)
 <ul>
-<li><span class="math inline">\(TTM_\mu = 27.3066667\)</span></li>
-<li><span class="math inline">\(TTM_M = 10.7816636\)</span></li>
-<li><span class="math inline">\(TTM_{0.05} = 0\)</span></li>
-<li><span class="math inline">\(TTM_{0.10} = 0\)</span></li>
-<li><span class="math inline">\(TTM_{0.90} = 104.7333333\)</span></li>
-<li><span class="math inline">\(TTM_{0.95} = 190.7733333\)</span></li>
+<li><span class="math inline">\(TTM_M: 10.7816635932058\)</span></li>
+<li><span class="math inline">\(TTM_\mu: 27.3066666666667\)</span></li>
+<li><span class="math inline">\(TTM_{0.05}: 0.0590411870113378\)</span></li>
+<li><span class="math inline">\(TTM_{0.10}: 0.249108526627296\)</span></li>
+<li><span class="math inline">\(TTM_{0.90}: 118.977867371325\)</span></li>
+<li><span class="math inline">\(TTM_{0.95}: 201.391357027274\)</span></li>
 </ul></li>
 <li>Expected Crop Output (ECO)
 <ul>
-<li><span class="math inline">\(ECO_\mu = 0.0366211\)</span></li>
-<li><span class="math inline">\(ECO_M = 0.0927501\)</span></li>
-</ul></li>
-<li>Net Smelting Gain (NSG)
-<ul>
-<li>N/A</li>
-</ul></li>
-<li>Perpetual Furnace Index (PFI)
-<ul>
-<li>N/A</li>
+<li><span class="math inline">\(ECO_M: 0.0927500650855183\)</span></li>
+<li><span class="math inline">\(ECO_\mu: 0.03662109375\)</span></li>
 </ul></li>
 </ul>
 </div>
@@ -197,7 +197,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -216,6 +215,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -236,12 +236,12 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": false,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
 },
-"theme": "united",
-"search": false
+"theme": "united"
 });
 });
 </script>
@@ -252,7 +252,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

@@ -15,9 +15,9 @@ geom_quantile <- function(p, growth_probability){
     p - (1 - (1 - growth_probability)^x)
   }
   
-  uniroot(f, 
-          interval = c(0, 1e8), 
-          growth_probability = growth_probability, 
-          p = p)$root
+  stats::uniroot(f, 
+                 interval = c(0, 1e8), 
+                 growth_probability = growth_probability, 
+                 p = p)$root
 }
 

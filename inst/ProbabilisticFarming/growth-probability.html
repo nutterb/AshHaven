@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Growth Probability | Probabilistic Minecraft Farming</title>
   <meta name="description" content="3 Growth Probability | Probabilistic Minecraft Farming" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Growth Probability | Probabilistic Minecraft Farming" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -21,6 +20,7 @@
   
   
 
+<meta name="author" content="" />
 
 
 <meta name="date" content="2023-11-29" />
@@ -32,8 +32,8 @@
   
 <link rel="prev" href="growth-related-tick-mechanics.html"/>
 <link rel="next" href="time-to-growth.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,9 +49,16 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -145,27 +152,28 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="growth-probability" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Growth Probability</h1>
+<div id="growth-probability" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Growth Probability<a href="growth-probability.html#growth-probability" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The growth probability of a crop is the probability that it will advance a growth stage when it is assigned a random tick. Whereas this probability is conditioned on the assignment of a random tick, it is denoted <span class="math inline">\(\Pr(Growth | RTick)\)</span>. The probability of growth is not always explicitly stated in easy to find resources. This section covers how to calculate the probability of growth from the mean time to growth and the median time to growth.</p>
-<div id="from-mean-time-to-growth" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> From Mean Time to Growth</h2>
+<div id="from-mean-time-to-growth" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> From Mean Time to Growth<a href="growth-probability.html#from-mean-time-to-growth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The Minecraft wiki states that bamboo grows approximately once every 4096 game ticks (<a href="https://minecraft.fandom.com/wiki/Tutorials/Bamboo_farming#Automatic_bamboo_farming_design" class="uri">https://minecraft.fandom.com/wiki/Tutorials/Bamboo_farming#Automatic_bamboo_farming_design</a>). Knowing that a random tick is assigned approximately once every 1365.3333333 ticks, the average number of random ticks assigned before growth is <span class="math inline">\(\frac{4096}{1365.3333333} = 3\)</span>. This implies that growth occurs once every three random ticks, for a probability of growth equal to 1/3 on each random tick.</p>
 <p>Generally speaking the formula for probability of growth calculated from the mean time to growth is</p>
 <p><span class="math display">\[\Pr(Growth | RTick) = \frac{1365.3333333}{TicksToGrowth}\]</span></p>
 <p>If units are given in other time units, the appropriate multiplier may be applied. For instance, if a resource describes a crop as growing once every few minutes, multiplying the denominator in the previous formula by 1200 will convert the number of minutes to ticks.</p>
 </div>
-<div id="from-median-time-to-growth" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> From Median Time to Growth</h2>
+<div id="from-median-time-to-growth" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> From Median Time to Growth<a href="growth-probability.html#from-median-time-to-growth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The median of the Geometric distribution is calculated as</p>
 <p><span class="math display">\[M = \frac{-1}{\log_2(1-\Pr(Growth|RTick))}\]</span></p>
-<p>Solving this for <span class="math inline">\(\Pr(Growth|RTick)\)</span> gives the probability of growth on a random tick. In this formulation, <span class="math inline">\(M\)</span> is agnostic to the units of measure.</p>
+<p>Solving this for <span class="math inline">\(\Pr(Growth|RTick)\)</span> gives the probability of growth on a random tick.</p>
 <p><span class="math display">\[\begin{aligned}
-&amp;            &amp;                              M &amp;= \frac{-1}{\log_2(1-\Pr(Growth | RTick))} \\
-&amp;\Rightarrow &amp;  \log_2(1-\Pr(Growth | RTick)) &amp;= \frac{-1}{M}           \\
-&amp;\Rightarrow &amp;          1-\Pr(Growth | RTick) &amp;= 2^{\frac{-1}{M}}       \\
-&amp;\Rightarrow &amp;               2^{\frac{-1}{M}} &amp;= \Pr(Growth | RTick)                      \\
-&amp;\Rightarrow &amp;            \Pr(Growth | RTick) &amp;= 2^{\frac{-1}{M}}       \\
+&amp;            &amp;                \frac{M}{TTRT} &amp;= \frac{-TTRT}{\log_2(1-\Pr(Growth | RTick))} \\
+&amp;\Rightarrow &amp;                             M &amp;= \frac{-TTRT}{\log_2(1-\Pr(Growth | RTick))}     \\
+&amp;\Rightarrow &amp; \log_2(1-\Pr(Growth | RTick)) &amp;= \frac{-TTRT}{M}                             \\
+&amp;\Rightarrow &amp;         1-\Pr(Growth | RTick) &amp;= 2^{\frac{-TTRT}{M}}       \\
+&amp;\Rightarrow &amp;           2^{\frac{-TTRT}{M}} &amp;= 1 - \Pr(Growth | RTick)                      \\
+&amp;\Rightarrow &amp;        \Pr(Growth | RTick)    &amp;= 1 - 2^{\frac{-TTRT}{M}}       \\
 \end{aligned}\]</span></p>
 </div>
 </div>
@@ -179,7 +187,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -198,6 +205,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -218,12 +226,12 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": false,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
 },
-"theme": "united",
-"search": false
+"theme": "united"
 });
 });
 </script>
@@ -234,7 +242,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

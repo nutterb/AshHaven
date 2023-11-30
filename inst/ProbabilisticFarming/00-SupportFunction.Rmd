@@ -63,15 +63,40 @@ crop_summary <- function(growth_probability,
     
     # Expected Crop Output ------------------------------------------
     "* Expected Crop Output (ECO)", 
-    sprintf("    + $TTM_M: %s$", 
+    sprintf("    + $ECO_M: %s$", 
             expected_crop_output(yield = yield, 
                                  growth_probability, 
                                  stages = stages)), 
-    sprintf("    + $TTM_\\mu: %s$", 
+    sprintf("    + $ECO_\\mu: %s$", 
             expected_crop_output(yield = yield, 
                                  growth_probability, 
                                  stages = stages,
                                  method = "mean")) 
+  ), collapse = "\n")
+}
+```
+
+```{r}
+smelt_summary <- function(total_smelt, 
+                          self_smelt, 
+                          craft_consumption, 
+                          yield, 
+                          growth_probability, 
+                          stages, 
+                          label = ""){
+  paste(c(
+    sprintf("* Smelting Metrics (%s)", label), 
+    sprintf("    + NSG_M: %s", 
+            net_smelting_gain(total_smelt, 
+                              self_smelt, 
+                              craft_consumption)), 
+    sprintf("    + PFI_M: %s", 
+            perpetual_furnace_index(total_smelt, 
+                                    self_smelt, 
+                                    craft_consumption, 
+                                    yield, 
+                                    growth_probability, 
+                                    stages))
   ), collapse = "\n")
 }
 ```

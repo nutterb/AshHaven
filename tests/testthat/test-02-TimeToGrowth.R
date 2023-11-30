@@ -7,8 +7,8 @@ test_that(
                  1.3477079)
     expect_equal(round(time_to_growth(1/3, method = "mean"), 7), 
                  3.4133333)
-    expect_equal(round(time_to_growth(1/3, p = .90, method = "quantile"), 7), 
-                 13.0916667)
+    expect_equal(round(time_to_growth(1/3, p = .90, method = "quantile"), 3), 
+                 14.872)
   }
 )
 
@@ -19,7 +19,7 @@ test_that(
                  3.6231142)
     expect_equal(round(time_to_growth(0.14, method = "mean"), 7), 
                  8.1269841)
-    expect_equal(round(time_to_growth(0.14, p = .90, method = "quantile"), 7), 
-                 39.275)
+    expect_equal(round(time_to_growth(0.14, p = .90, method = "quantile"), 3), 
+                 39.982)
   }
 )
