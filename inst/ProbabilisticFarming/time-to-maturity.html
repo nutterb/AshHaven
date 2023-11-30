@@ -6,10 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Time to Maturity | Probabilistic Minecraft Farming</title>
   <meta name="description" content="5 Time to Maturity | Probabilistic Minecraft Farming" />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Time to Maturity | Probabilistic Minecraft Farming" />
   <meta property="og:type" content="book" />
+  
   
   
   
@@ -20,10 +21,9 @@
   
   
 
-<meta name="author" content="" />
 
 
-<meta name="date" content="2023-11-29" />
+<meta name="date" content="2023-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,8 @@
   
 <link rel="prev" href="time-to-growth.html"/>
 <link rel="next" href="expected-crop-output.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,16 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
 
 </head>
 
@@ -152,13 +145,13 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="time-to-maturity" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">5</span> Time to Maturity<a href="time-to-maturity.html#time-to-maturity" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="time-to-maturity" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Time to Maturity</h1>
 <p>Time to Maturity (TTM) is the duration of time between when it is planted and when it reaches a mature state and is ready to harvest. Crops may encounter several stages of growth before maturity–such as wheat, which encounters eight growth stages. Other crops, such as bamboo, are considered mature (harvestable) at every growth stage. This effectively gives bamboo a single growth stage. Yet, a player may decide they want to harvest the bamboo only when it is ten blocks tall. Such a condition would effectively apply nine growth stages to the bamboo. When considering a crop that experiences growth stages, it may be of importance to know the TTM in order to plan appropriate harvesting mechanics.</p>
 <p>In the previous section, the Time to Growth (TTG) was calculated based on a Geometric distribution. This is appropriate for the TTG, since it is interested in when the <em>next</em> growth event occurs. When calculating TTM, the event of interest is when <span class="math inline">\(S\)</span> growth events occur, where <span class="math inline">\(S\)</span> is the number of growth stages for the crop. These circumstances require a model based on the <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution">Negative Binomial</a> distribution.</p>
 <p>The basic level computation for TTM is <span class="math inline">\(TTM = TTG \cdot R_S\)</span> where <span class="math inline">\(R_S\)</span> is the number or random ticks assigned to a block before <span class="math inline">\(S\)</span> growth stages were experienced. Conceptually, this is nothing more than multiplying the Time to Growth by the number of growth attempts required to complete <span class="math inline">\(S\)</span> growth stages. This makes the calculation of <span class="math inline">\(R_S\)</span> essential to determining TTM. The calculation of <span class="math inline">\(R_S\)</span> is done by calculating the mean, median, or quantile of the Negative Binomial distribution with parameters <span class="math inline">\(S\)</span> and <span class="math inline">\(\Pr(Growth | RTick)\)</span>.</p>
-<div id="mean-time-to-maturity" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Mean Time to Maturity<a href="time-to-maturity.html#mean-time-to-maturity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mean-time-to-maturity" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Mean Time to Maturity</h2>
 <p>The mean TTM (<span class="math inline">\(TTM_\mu\)</span>) gives the mean time to maturity for a crop. The mean of the Negative Binomial distribution is given by <span class="math inline">\(\mu = \frac{S}{\Pr(Growth|RTick)}\)</span>.</p>
 <p><span class="math display">\[\begin{aligned}
 TTM_\mu &amp;= TTG_\mu \cdot \frac{S}{\Pr(Growth|RTick)}
@@ -169,15 +162,15 @@ TTM_\mu &amp;= \frac{1200}{\Pr(RTick) \cdot \Pr(Growth|Tick)} \cdot \frac{S}{\Pr
         &amp;= \frac{1200 \cdot S}{\Pr(RTick) \cdot \Pr(Growth|Tick) ^ 2}
 \end{aligned}\]</span></p>
 </div>
-<div id="median-time-to-maturity" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Median Time To Maturity<a href="time-to-maturity.html#median-time-to-maturity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="median-time-to-maturity" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Median Time To Maturity</h2>
 <p>The median TTM (<span class="math inline">\(TTM_M\)</span>) gives the median time to maturity for a crop. The median of the Negative Binomial distribution does not have a formt that lends itself to simple expression. Its calculation will rely on the use of computerized methods, such as R’s <code>qnbinom</code> function.</p>
 <p><span class="math display">\[\begin{aligned}
 TTM_M &amp;= TTG_M \cdot qnbinom(0.5,\ S,\ \Pr(Growth|RTick))
 \end{aligned}\]</span></p>
 </div>
-<div id="time-to-maturity-quantiles" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Time to Maturity Quantiles<a href="time-to-maturity.html#time-to-maturity-quantiles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="time-to-maturity-quantiles" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Time to Maturity Quantiles</h2>
 <p>Quantiles of the Time to Maturity (<span class="math inline">\(TTM_p\)</span>) may be calculated in the form</p>
 <p><span class="math display">\[\begin{aligned}
 TTM_p &amp;= TTG_M \cdot qnbinom(p,\ S,\ \Pr(Growth|RTick))
@@ -195,6 +188,7 @@ TTM_p &amp;= TTG_M \cdot qnbinom(p,\ S,\ \Pr(Growth|RTick))
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -213,7 +207,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -234,12 +227,12 @@ gitbook.start({
 "text": null
 },
 "download": null,
-"search": false,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
 },
-"theme": "united"
+"theme": "united",
+"search": false
 });
 });
 </script>
@@ -250,7 +243,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

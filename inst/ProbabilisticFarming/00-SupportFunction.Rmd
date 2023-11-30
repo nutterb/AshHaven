@@ -86,11 +86,11 @@ smelt_summary <- function(total_smelt,
                           label = ""){
   paste(c(
     sprintf("* Smelting Metrics (%s)", label), 
-    sprintf("    + NSG_M: %s", 
+    sprintf("    + $NSG_M: %s$", 
             net_smelting_gain(total_smelt, 
                               self_smelt, 
                               craft_consumption)), 
-    sprintf("    + PFI_M: %s", 
+    sprintf("    + $PFI_M: %s$", 
             perpetual_furnace_index(total_smelt, 
                                     self_smelt, 
                                     craft_consumption, 

@@ -6,10 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Growth Related Tick Mechanics | Probabilistic Minecraft Farming</title>
   <meta name="description" content="2 Growth Related Tick Mechanics | Probabilistic Minecraft Farming" />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Growth Related Tick Mechanics | Probabilistic Minecraft Farming" />
   <meta property="og:type" content="book" />
+  
   
   
   
@@ -20,10 +21,9 @@
   
   
 
-<meta name="author" content="" />
 
 
-<meta name="date" content="2023-11-29" />
+<meta name="date" content="2023-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,8 @@
   
 <link rel="prev" href="introduction.html"/>
 <link rel="next" href="growth-probability.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,16 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
 
 </head>
 
@@ -152,8 +145,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="growth-related-tick-mechanics" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">2</span> Growth Related Tick Mechanics<a href="growth-related-tick-mechanics.html#growth-related-tick-mechanics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="growth-related-tick-mechanics" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Growth Related Tick Mechanics</h1>
 <p>Timed mechanics in Minecraft are operated on a <em>tick</em> system.</p>
 <blockquote>
 <p>A game tick is where Minecraft’s game loop runs once. The game normally runs at a fixed rate of 20 ticks per second, so one tick happens every 0.05 seconds (<a href="https://minecraft.fandom.com/wiki/Tick#Game_tick" class="uri">https://minecraft.fandom.com/wiki/Tick#Game_tick</a>)</p>
@@ -167,13 +160,13 @@
 <blockquote>
 <p>In Java Edition, the number of blocks chosen from each section is specified by /gamerule randomTickSpeed (defaults to 3), and one block can be chosen multiple times in one chunk tick. (<a href="https://minecraft.fandom.com/wiki/Tick#Random_tick" class="uri">https://minecraft.fandom.com/wiki/Tick#Random_tick</a>)</p>
 </blockquote>
-<div id="probability-of-random-tick-assignment" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Probability of Random Tick Assignment<a href="growth-related-tick-mechanics.html#probability-of-random-tick-assignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="probability-of-random-tick-assignment" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Probability of Random Tick Assignment</h2>
 <p>Mathematically speaking, the blocks chosen to receive a random tick are randomly selected with replacement from the allotment of 4,096 blocks. Based on this information, the probability that any single block is chosen for a random tick within any chunk tick is</p>
 <p><span class="math display">\[ \Pr(RTick) = \frac{3}{16 \cdot 16 \cdot 16} = \frac{3}{4096} \approx 7.3242188\times 10^{-4}  \]</span></p>
 </div>
-<div id="time-to-random-tick" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Time to Random Tick<a href="growth-related-tick-mechanics.html#time-to-random-tick" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="time-to-random-tick" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Time to Random Tick</h2>
 <p>The Time to Random Tick (TTR) is a measure of how much time passes between a block receiving random ticks. Because these times are based on game mechanics, they are constant and uninfluenced by the specific mechanics of any crop.</p>
 <p>The mean TTR, denoted <span class="math inline">\(TTR_\mu\)</span>, gives the mean time between random tick assignments. It is based on the mean of the Geometric distribution with parameter <span class="math inline">\(p = \Pr(RTick)\)</span>.</p>
 <p><span class="math display">\[\begin{aligned}
@@ -189,24 +182,12 @@ TTR_M &amp;= \frac{-1}{\log_2(1 - p)}  \\
 \end{aligned}\]</span></p>
 <p>It is also possible to calculate various quantiles of TTR, denoted <span class="math inline">\(TTR_p\)</span>. The formulae for these equations are not simple, but computer algorithms exist that can efficiently produce these results. This document uses R software to calculate quantiles when needed.</p>
 </div>
-<div id="distributional-background-of-ticks" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Distributional Background of Ticks<a href="growth-related-tick-mechanics.html#distributional-background-of-ticks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="distributional-background-of-ticks" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Distributional Background of Ticks</h2>
 <p>The probability distribution of time to the next random tick is shown in the following plot.</p>
 <p><img src="index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Since players do not tend to think in terms of ticks, the mean time to the next random tick assignment is translated into player friendly time formats in the following table. The columns to the right of the mean show various quantiles. In the <code>p_025</code> column, 2.5% of the time, the next random tick will be assigned in less than 1.7 seconds. The median time to the next random tick assignment is give in the <code>p_500</code> column.</p>
-<table style="width:100%;">
-<colgroup>
-<col width="16%" />
-<col width="13%" />
-<col width="9%" />
-<col width="7%" />
-<col width="7%" />
-<col width="8%" />
-<col width="8%" />
-<col width="9%" />
-<col width="9%" />
-<col width="8%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
 <th align="left">unit</th>
@@ -284,8 +265,8 @@ TTR_M &amp;= \frac{-1}{\log_2(1 - p)}  \\
 </tr>
 </tbody>
 </table>
-<div id="number-of-random-ticks-assigned" class="section level3 hasAnchor" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Number of Random Ticks Assigned<a href="growth-related-tick-mechanics.html#number-of-random-ticks-assigned" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="number-of-random-ticks-assigned" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Number of Random Ticks Assigned</h3>
 <p>Another metric of interest to the player may, at times, be the number of random ticks assigned within a certain time frame. This metric can be modeled using a Binomial distribution with the parameters <span class="math inline">\(p = 7.3242188\times 10^{-4}\)</span> and <span class="math inline">\(n\)</span> is equal to the number of ticks in time time period of interest. The mean of the Binomial distribution is <span class="math inline">\(n \cdot p\)</span> with a standard deviation of <span class="math inline">\(\sqrt{n \cdot p \cdot (1 - p)}\)</span>. With 1200 ticks occurring each minute, the mean number of random ticks assigned to a block within a minutes is <span class="math inline">\(\mu = 0.8789062\)</span> with standard deviation <span class="math inline">\(\sigma = 0.9371566\)</span>.</p>
 <p><img src="index_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Another way to interpret this is that 58.49% of blocks receive at least one random tick during each minute.</p>
@@ -302,6 +283,7 @@ TTR_M &amp;= \frac{-1}{\log_2(1 - p)}  \\
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -320,7 +302,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -341,12 +322,12 @@ gitbook.start({
 "text": null
 },
 "download": null,
-"search": false,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
 },
-"theme": "united"
+"theme": "united",
+"search": false
 });
 });
 </script>
@@ -357,7 +338,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

@@ -1,0 +1,142 @@
+--- 
+title: "Probabilistic Minecraft Farming"
+subtitle: ""
+author: ""
+date: "`r format(Sys.Date(), format = '%d %b %Y')`"
+output:
+  bookdown::gitbook:
+    config:
+      toc:
+        collapse: section
+        scroll_highlight: true
+        before: null
+        after: null
+      theme: united
+  bookdown::pdf_book:
+    keep_tex: yes
+documentclass: book
+link-citations: yes
+---
+
+<style type="text/css">
+.book .book-body .page-wrapper .page-inner {
+  max-width: 90%;
+}
+</style>
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(AshHaven)
+library(dplyr)
+library(ggplot2)
+
+theme_set(theme_bw())
+
+PURPLE <- "#9970AB"
+
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE, 
+                      message = FALSE)
+```
+
+# Overview of Development Phases
+
+These tasks/structures listed here provide the order in which development of Ash Haven should take place in order to facilitate survival and resource collection toward the completion of the Sorting System. Immediate needs and interests may dictate some alteration.
+
+# Early Game / Survival Phase
+
+These priorities may be temporary in nature. They are intended to advance game play to a stable state where basic survival necessities are no longer a primary concern.
+
+Each structure needs to be lit well enough to prevent mob spawning. Consequently, early farms may be relatively small. A second, large farm may be constructed as an intermediary between the small farm and the fully automated farms. All of these should exist in the spawn chunks so that they will produce and/or advance regardless of where players are.
+
+* Survival shelter. A temporary structure in which players may find respite from hostile mobs at night time.
+* Potato farm: a small, manual farm to provide food until a large scale farm can be assembled.
+* Wheat farm: a small, manual farm to provide food and breeding resources for cows until a large scale farm can be assembled.
+* Carrot Farm: a small, manual farm to provide food and breeding resources for pigs until a large scale farm can be assembled
+* Tree farms: A well lit tree farm for the purposes of providing wood for use in constructing charcoal, torches, beds, and chests. The primary goal of these farms is supporting development of the sorting system. Thus, not all tree types need a farm; only those with high wood output.
+* Mine (start): the primary mining level will be at -53. The initial goal of the mine is to locate iron with which to make shears. Construction of the mine entrance may be delayed after iron has been produced in sufficient quantity to produce beds. See the section on Mine Design for full specs.
+* Wool: enough to make beds for players to place in the temporary shelter
+* Beds: place beds to allow players to sleep when needed.
+
+# Infrastructure Phase 1
+
+* Pumpkin farm: a small scale pumpkin farm to produce pumpkins for Jack o’ lanterns. (About 50 units)
+* Sheep pen: a temporary pen for housing sheep for wool availability. Will be removed when a permanent sheep farm is developed.
+* Cow pen: a temporary pen for breeding and harvesting cows for leather production (for books). Will be removed when a permanent cow farm is established.
+* Sugar cane farm: temporary, manual farm for harvesting paper for books. (About 50 units)
+* Bamboo farm: small, manual farm for producing bamboo and scaffolding. (About 50 units)
+* Finish mine construction. See the section on Mine Design for full specs. (About 50 units)
+
+# Infrastructure Phase 2
+
+Each of these farms are critical to the development of the full Sorting System. They provide the resources needed for tool maintenance, excavation, and constructing the massive quantities of hoppers needed to operate the Sorting System.
+
+* XP Farm: Enderman farm with the purpose of farming XP in large quantities. Necessary for enchanting books and tools.
+* Sand Farm: A permanent sand duplicator for supplying the large quantities of sand needed for glass production.
+* Mob Farm: A permanent, large scale and automated farm for harvesting mobs. The primary outputs desired by this farm are gunpowder and arrows.
+* Iron Farm: A large scale, permanent farm for the production of iron. 
+
+# Infrastructure Phase 3
+
+The most time consuming task of this phase is the excavation of the Sorting System area. Due to the modular nature of the warehouse units, excavation of the warehouse may be limited to immediate needs. Excavation of other units may also be limited to immediate needs.
+
+* Excavate Sorting System footprint
+* Assemble Storage System Buffer
+* Assemble Smelting Unit
+* Assemble Autocrafting Unit
+* Assemble Composting Unit
+* Assemble Incineration Unit
+* Assemble Overflow Unit
+* Assemble first three modules of Warehouse
+* Monument farm: needed for production of fish, and materials for Sea lanterns to replace jack o lanterns.
+
+# Advanced Infrastructure Phase
+
+This phase of the project development of farms to be kept in the spawn chunks for Sorting System infrastructural support.
+
+* Kelp farm: to be of sufficient quantity to maintain on-demand smelting. 
+* Sugar Cane farm: may be of smaller scale, but sufficient to produce enough paper for several books per day. Chunk loader may desirable with this farm.
+* Slime farm: permanent structure built in one or more slime chunks to produce slime.
+* Automated food farms: priority for potatoes, wheat, and carrots. 
+* Egg farm
+
+
+# At Will Development Phase
+
+The following farms are add ons to the Ash Haven infrastructure but are not critical to the construction of the Sorting System. They may be developed in any order. Farms where continuous production is desire should include a chunk loader.
+
+Bamboo (if not used for smelting fuel)
+Cactus
+Cocoa
+Cow farm
+Flower Farm
+Honey Farm
+Kelp (if not used for smelting fuel)
+Melon
+Pig farm
+Pumpkin
+Sheep farm
+Sweet Berries
+Tree farms (permanent, all types)
+Villager trading
+Wool farm
+
+# Mine Design
+
+The primary design requirement is for the base of the mine to be on mining level y = -53 near enough the Sorting System Buffer to efficiently deliver mined materials to the Buffer.
+
+Delivery of mined materials may require an item elevator to push items further up the buffer to where they can enter the system without significant delay (perhaps around y = -40).
+
+Three designs are under consideration for constructing the mine. Regardless of the chosen design, water elevators will eventually be constructed to permit rapid ascent and descent to the mine. (The stairway entrance will remain as a secondary path and to support transport using mine carts).
+
+**Straight Entrance**
+
+A straight entrance mine would construct a linear staircase to the mining level. In order for the entrance to terminate at level y = -53 and near the Sorting System Buffer, the upper side of the entrance would need to be placed over 100 blocks away from the buffer. This could be a significant inconvenience to the player.
+
+**Spiral Entrance**
+
+A spiral Entrance could be constructed near the upper end of the buffer and descend in a straight, 12x12 spiral. This facilitates a drop of 4 blocks before each turn. However, this inconveniences the use by having to make 25 turns to reach the bottom of the mine
+
+**Split Straight Entrance**
+
+This design would have an upper end near the Buffer and have a linear descent of 50-60 blocks. It would then turn 180 degrees to resume the descent to the mining level at y = -53. This allows the entrance at both levels to be near the Buffer with minimal turns.
+

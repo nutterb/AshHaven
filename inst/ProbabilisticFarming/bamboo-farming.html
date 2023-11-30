@@ -6,10 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9 Bamboo Farming | Probabilistic Minecraft Farming</title>
   <meta name="description" content="9 Bamboo Farming | Probabilistic Minecraft Farming" />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="9 Bamboo Farming | Probabilistic Minecraft Farming" />
   <meta property="og:type" content="book" />
+  
   
   
   
@@ -20,10 +21,9 @@
   
   
 
-<meta name="author" content="" />
 
 
-<meta name="date" content="2023-11-29" />
+<meta name="date" content="2023-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,8 @@
   
 <link rel="prev" href="perpetual-furnace-index.html"/>
 <link rel="next" href="kelp-farming.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,16 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
 
 </head>
 
@@ -152,10 +145,10 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bamboo-farming" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">9</span> Bamboo Farming<a href="bamboo-farming.html#bamboo-farming" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="farm-metrics" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> Farm Metrics<a href="bamboo-farming.html#farm-metrics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="bamboo-farming" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Bamboo Farming</h1>
+<div id="farm-metrics" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Farm Metrics</h2>
 <ul>
 <li>Growth Stages: 1</li>
 <li><span class="math inline">\(\Pr(Growth|RTick) = 0.147934901539532\)</span></li>
@@ -185,25 +178,25 @@
 </ul></li>
 <li>Smelting Metrics (Bamboo -&gt; Bamboo)
 <ul>
-<li>NSG_M: 0.25</li>
-<li>PFI_M: 81.92</li>
+<li><span class="math inline">\(NSG_M: 0.25\)</span></li>
+<li><span class="math inline">\(PFI_M: 81.92\)</span></li>
 </ul></li>
 </ul>
 </div>
-<div id="growth-stages" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> Growth Stages<a href="bamboo-farming.html#growth-stages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="growth-stages" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Growth Stages</h2>
 <p>New bamboo growth is harvestable after each growth event. If a bamboo starts at a height of one, when it grows to a height of two, the new block at level to is harvestable. This effectively gives bamboo a single stage of growth.</p>
 <p>Players are not required to harvest at the first stage, however, and may opt to delay harvest until subsequent growth stages are complete. Bamboo will grow to a total height between 12 and 16 blocks tall, meaning it may be treated as having between 11 and 15 growth stages. With no practical method to determine what the maximum height of any individual bamboo plant will be, players would do well to treat bamboo as having 11 growth stages and plan harvests accordingly.</p>
 </div>
-<div id="optimizing-timed-harvests" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Optimizing Timed Harvests<a href="bamboo-farming.html#optimizing-timed-harvests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="optimizing-timed-harvests" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Optimizing Timed Harvests</h2>
 <p>Suppose bamboo farm is designed with the intent to perform a timed harvest. That is, the player does not wish to user observer blocks to initiate the harvest, but instead wishes to use a timed device. The player also recognizes that if bamboo is left to grow beyond its eleventh growth cycle, there is potential for it to stop growing and reduce the yield of the farm. In order to reduce loss of yield, it is decided that the harvest action will occur at the time that twenty five percent of the bamboo plants have reached the tenth growth stage–where the bamboo is at a total height of eleven blocks and yields ten crops.</p>
 <p>This design allows for only twenty five percent of the bamboo plants the opportunity to reach a height at which they may stop growing. The time between harvests can be calculated as the time to maturity for bamboo with ten growth stages.</p>
 <p><span class="math display">\[TTM_{0.25} = 5.8796961\]</span></p>
 <p>The player should set the harvest clock for about 5.8796961 minutes, or 5 minutes and 53 seconds.</p>
 </div>
-<div id="bamboo-as-fuel" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Bamboo as Fuel<a href="bamboo-farming.html#bamboo-as-fuel" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="bamboo-as-fuel" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Bamboo as Fuel</h2>
 <table>
 <thead>
 <tr class="header">
@@ -258,6 +251,7 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -276,7 +270,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -297,12 +290,12 @@ gitbook.start({
 "text": null
 },
 "download": null,
-"search": false,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
 },
-"theme": "united"
+"theme": "united",
+"search": false
 });
 });
 </script>
@@ -313,7 +306,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

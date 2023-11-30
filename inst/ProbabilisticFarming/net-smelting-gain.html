@@ -6,10 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7 Net Smelting Gain | Probabilistic Minecraft Farming</title>
   <meta name="description" content="7 Net Smelting Gain | Probabilistic Minecraft Farming" />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7 Net Smelting Gain | Probabilistic Minecraft Farming" />
   <meta property="og:type" content="book" />
+  
   
   
   
@@ -20,10 +21,9 @@
   
   
 
-<meta name="author" content="" />
 
 
-<meta name="date" content="2023-11-29" />
+<meta name="date" content="2023-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,8 @@
   
 <link rel="prev" href="expected-crop-output.html"/>
 <link rel="next" href="perpetual-furnace-index.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,16 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
 
 </head>
 
@@ -152,8 +145,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="net-smelting-gain" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">7</span> Net Smelting Gain<a href="net-smelting-gain.html#net-smelting-gain" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="net-smelting-gain" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Net Smelting Gain</h1>
 <p>The Net Smelting Gain (NSG) is a measure of the number of items an individual fuel source item can smelt after accounting for the number of its own items it must consume in order to turn itself into a fuel source.</p>
 <p>An early example of an item that must be smelted prior to smelting is a wood block. After being smelted, it becomes charcoal, which is then able to smelt eight items. The cost of one wood block is deducted from the items the charcoal can smelt, giving it a net gain of seven items.</p>
 <p>Since raw materials may have different NSGs after crafting, the NSG should generally be reported with the raw item and the crafted item in the form NSG(wood block -&gt; charcoal).</p>
@@ -178,6 +171,7 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -196,7 +190,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -217,12 +210,12 @@ gitbook.start({
 "text": null
 },
 "download": null,
-"search": false,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
 },
-"theme": "united"
+"theme": "united",
+"search": false
 });
 });
 </script>
@@ -233,7 +226,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
