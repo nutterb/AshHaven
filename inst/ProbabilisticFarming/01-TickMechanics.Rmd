@@ -14,92 +14,169 @@ Minecraft worlds are subdivided into _chunks_, or vertical columns that are each
 
 > In Java Edition, the number of blocks chosen from each section is specified by /gamerule randomTickSpeed (defaults to 3), and one block can be chosen multiple times in one chunk tick. (https://minecraft.fandom.com/wiki/Tick#Random_tick)
 
+In the process of farming, the player is rarely interested in a single block within the subchunk. It is of greater interest to know if one or more of the blocks dedicated to farming a resource will receive a random tick. Under default game conditions, at most three blocks dedicated to a farm may receive a random tick. 
+
 ## Probability of Random Tick Assignment
 
 Mathematically speaking, the blocks chosen to receive a random tick are randomly selected with replacement from the allotment of 4,096 blocks. Based on this information, the probability that any single block is chosen for a random tick within any chunk tick is 
 
 $$ \Pr(RTick) = \frac{3}{16 \cdot 16 \cdot 16} = \frac{3}{4096} \approx `r 3/4096`  $$
 
+This probability calculation, however, only applies to a farm with exactly one block dedicated to farming within a subchunk. Whereas the player is likely to dedicate multiple blocks to farming, the probability distribution must account for blocks being selected from among the farm-dedicated blocks and the blocks outside of the farm. The _Hypergeometric_ distribution satisfies this need. The hypergeometric distribution may be applied using the following definitions
+
+* $B =$ Number of blocks in a subchunk ($16^3 = 4,096$).
+* $F =$ Number of blocks dedicated to the farm. 
+* $rts =$ Random tick speed, or the number of random ticks assigned per tick.
+* $F_r =$ The number of blocks of farm land that receive a random tick. 
+* With the conditions $0 \leq F_r \leq rts \leq F \leq B$.
+
+Under these conditions, the probability of $F_r$ random ticks assigned within a farm of size $F$ is denoted
+
+$$
+\Pr(RTick, F_r | F) = \Pr(F_r = f_r | F) = \frac{{F \choose f_r}{B - F \choose rts - f_r}}{{N \choose rts}}
+$$
+
+By way of comparison, the probability of a farm with size $F = 1$ receiving a random tick (the conditions equal to the simple calculation of $\Pr(RTick)$ above) is 
+
+$$\begin{aligned}
+\Pr(RTick, F_r = 1 | F = 1)
+    &= \Pr(F_r = 1 | F = 1) \\
+    &= \frac{{F \choose f_r}{B - F \choose rts - f_r}}{{N \choose rts}} \\
+    &= \frac{{1 \choose 1}{4096 - 1 \choose 3 - 1}}{4096 \choose 3} \\
+    &= \frac{1 \cdot {4095 \choose 2}}{4096 \choose 3} \\
+    &= \frac{8382465}{11444858880} \\
+    &= `r p_rtick(1, 1)`
+\end{aligned}$$
+
+Although this is a significantly more complicated calculation, it provides the ability to change focus from "did a block receive a random tick" toward "how many blocks of farmland received a random tick."
+
+The following table shows the probability of zero, one, two, or three blocks within a farm receiving a random tick for farms ranging in size from one block to ten blocks. Notice that in the column for 1 block receiving a random tick (Fr = 1), the probability steadily increases as the number of farm blocks increases. This is intuitive; it is reasonable to expect a higher probability of one block being assinged a random tick if there are more opportunities for assignment. 
+
+```{r}
+Data <- 
+  expand.grid(Farm = 1:10, 
+              Fr = 0:3) %>% 
+  filter(Farm >= Fr) %>%
+  mutate(p = mapply(p_rtick, 
+                    f = Farm, 
+                    fr = Fr, 
+                    SIMPLIFY = TRUE))
+
+Data %>% 
+  mutate(Fr = sprintf("Pr(Fr = %s)", Fr)) %>% 
+  dcast(Farm ~ Fr, 
+        value.var = "p") %>% 
+  rename(`Farm Blocks` = Farm) %>% 
+  knitr::kable()
+```
+
+This concept can be extended into the plot below which illustrates how the probabilities of one, two, and three blocks receiving a random tick increase as more blocks in the subchunk are assigned to the farm. One of the interesting features of this plot is that the probability of one block receiving a tick is not monotonic; it begins to decrease and returns to zero. Again, this is intuitive; if the majority of the blocks are assigned to farm land, it becomes more likely that either two or three blocks receive the random tick. If all 4,096 blocks are assigned to farmland, all three random ticks are assigned to a farm block, pushing $\Pr(Fr = 1)$ to 0.
+
+```{r}
+Data <- 
+  expand.grid(Fr = 0:3, 
+              Farm = 0:(16^3)) %>% 
+  filter(Farm >= Fr) %>%
+  mutate(p = mapply(p_rtick, 
+                    f = Farm, 
+                    fr = Fr, 
+                    SIMPLIFY = TRUE))
+
+
+ggplot(data = Data, 
+       mapping = aes(x = Farm, 
+                     y = p, 
+                     colour = factor(Fr))) + 
+  geom_line(size = 1) + 
+  xlab("Blocks Committed to Farm") + 
+  ylab("Probability") + 
+  labs(colour = "Farm Blocks\nReceiving\nRandom Tick")
+```
+
 ## Time to Random Tick
 
-The Time to Random Tick (TTR) is a measure of how much time passes between a block receiving random ticks. Because these times are based on game mechanics, they are constant and uninfluenced by the specific mechanics of any crop. 
+The Time to Random Tick ($TTR$) is a measure of how much time passes between a block receiving random ticks. Because these times are based on game mechanics, they are uninfluenced by the specific mechanics of the crop being farmed. They are impacted, however, by the number of blocks in the subchunk assigned to the farm. Specifically, the time to a single block receiving a random tick decreases as the size of the farm increases. As a general measure of crop productivity, the player is likely most interested in the time to any random tick in the farm.
 
-The mean TTR, denoted $TTR_\mu$, gives the mean time between random tick assignments. It is based on the mean of the Geometric distribution with parameter $p = \Pr(RTick)$.
+The $TTR$ may be used to make rough estimates of crop yield, but the player should be aware that such estimates will be somewhat biased as they do not weight correctly for whether one, two, or three blocks receive the random tick. Still, for farms of less than 100 blocks, these rough estimates are likely to be close to the true value.
+
+### Mean $TTR$
+
+The mean $TTR$, denoted $TTR_\mu$, gives the mean time between random tick assignments. It is based on the mean of the Geometric distribution with parameter $p = \Pr(RTick, F_r > 0 | F )$. For a farm consisting of a single block
 
 $$\begin{aligned}
-TTR_\mu &= \frac{1}{\Pr(RTick)}  \\
-        &= \frac{1}{`r P_RTICK`} \\
-        &\approx `r 1/P_RTICK`
+TTR_\mu(F = 1) &= \frac{1}{\Pr(RTick, F_r = 1 | F = 1)} \\
+  &= \frac{1}{`r p_rtick(1, 1)`} \\
+  &\approx `r ttrt(1, method = "mean")`
+\end{aligned}$$
+
+For a farm consisting of $F = 10$ blocks of farmland, the calculations develop more complexity
+
+$$\begin{aligned}
+TTR_\mu(F = 10) &= \frac{1}{\Pr(RTick, F_r > 0 | F = 10)} \\
+  &= \frac{1}{\sum\limits_{i = 1}^{3} \Pr(RTick, F_r = i | F = 10)} \\ 
+  &= \frac{1}{`r p_rtick(10, 1) + p_rtick(10, 2) + p_rtick(10, 3)`} \\
+  &= \frac{1}{`r sum(p_rtick(10, 1:3))`} \\
+  &= `r ttrt(10, method = "mean")`
+\end{aligned}$$
+
+### Median $TTR$
+
+The Median $TTR$, denoted $TTR_M$, gives the median time between random tick assignments. Fifty percent of random ticks will be assigned in less time than $TTR_M$ and fifty percent will be assigned in more than $TTR_M$. Because the Geometric distribution is a right skewed distribution, the median is somewhat lower than the mean. It follow that $TTR_M < TTR_\mu$. Estimations of crop yield using $TTR$ will differ depending on whether the calculations are based on $TTR_\mu$ or $TTR_M$, with the $TTR_\mu$ estimates being more conservative (lower).
+
+The $TTR_M$ for a single block of farmland is 
+
+$$\begin{aligned}
+TTR_M(F = 1) &= \frac{-1}{\log_2(1 - p)} \\ 
+  &= \frac{-1}{\log_2(1 - \Pr(RTick, F_r = 1 | F = 1))} \\
+  &= \frac{-1}{\log_2(1 - `r p_rtick(1, 1)`)} \\
+  &= \frac{-1}{\log_2(`r 1 - p_rtick(1, 1)`)} \\
+  &= \frac{-1}{`r log2(1 - p_rtick(1, 1))`} \\
+  &= `r ttrt(1)`
+\end{aligned}$$
+
+The $TTR_M$ for a single block of farmland is 
+
+$$\begin{aligned}
+TTR_M(F = 10) &= \frac{-1}{\log_2(1 - p)} \\ 
+  &= \frac{-1}{\log_2(1 - \sum\limits_{i = 1}^{3} \Pr(RTick, F_r = i | F = 10))} \\
+  &= \frac{-1}{\log_2(1 - (`r p_rtick(10, 1)` + `r p_rtick(10, 2)` + `r p_rtick(10, 3)`))} \\
+  &= \frac{-1}{\log_2(1 - `r sum(p_rtick(10, 1:3))`)} \\
+  &= \frac{-1}{\log_2(`r 1 - sum(p_rtick(10, 1:3))`)} \\
+  &= \frac{-1}{`r log2(1 - sum(p_rtick(10, 1:3)))`} \\
+  &= `r ttrt(10)`
 \end{aligned}$$
 
 
-The median TTR, denoted $TTR_M$, gives the median time between random tick assignments. Fifty percent of random ticks will be assigned in less time that $TTR_M$ and fifty percent will be assigned in more than $TTR_M$. Because the Geometric distribution is a right skewed distribution, the median is somewhat lower than the mean. It follows, then, that $TTR_M$ < $TTR_\mu$. Calculations of crop yield will differ depending on whether the calculations are based on $TTR_\mu$ or $TTR_M$, with $TTR_\mu$ being more conservative (lower).
-
-$$\begin{aligned}
-TTR_M &= \frac{-1}{\log_2(1 - p)}  \\
-      &= \frac{-1}{\log_2(1 - \Pr(RTick)} \\
-      &\approx `r -1 / (log2(1 - P_RTICK))`
-\end{aligned}$$
+### TTR Quantiles 
 
 It is also possible to calculate various quantiles of TTR, denoted $TTR_p$. The formulae for these equations are not simple, but computer algorithms exist that can efficiently produce these results. This document uses R software to calculate quantiles when needed.
 
-## Distributional Background of Ticks
+### TTR Overview
 
-The probability distribution of time to the next random tick is shown in the following plot.
+The following plot illustrates the relationship between farm size and $TTR$. Large reductions in $TTR$ occur be increasing the size of the farm past five blocks. Farms of size 20 blocks are likely to have at least one random tick assigned with in `r round(ttrt(20)/20, 2)` seconds, while farms of size 50 blocks are likely to have at least one random tick within `r round(ttrt(50)/20, 2)` seconds. Although being assigned a random tick is not a guarantee of growth, growth cannot happen without the random tick. Thus, reducing time to random tick assignment is an essential part of increasing crop yield.
 
 ```{r}
-PGeom <- 
-  data.frame(x = 1:2500) %>% 
-  mutate(p = dgeom(x, P_RTICK))
+Data <- 
+  data.frame(Farm = 1:16^3) %>% 
+  mutate(ttr_mean = vapply(Farm, ttrt, numeric(1), method = "mean"), 
+         ttr_median = vapply(Farm, ttrt, numeric(1)), 
+         ttr_p95 = vapply(Farm, ttrt, numeric(1), p = 0.95, method = "quantile")) %>% 
+  gather("metric", "value", -Farm) %>% 
+  mutate(metric = factor(metric, 
+                         c("ttr_mean", "ttr_median", "ttr_p95"), 
+                         c("MEAN TTR", "Median TTR", "95th Percentile")))
 
-ggplot(data = PGeom, 
-       mapping = aes(x = x, 
-                     y = p)) + 
-  geom_line(color = PURPLE, 
-            size = 1) + 
-  xlab("Number of Ticks Until Random Tick Assigned") + 
-  ylab("Probability")
+ggplot(data = Data, 
+       mapping = aes(x = Farm, 
+                     y = value / 20, 
+                     colour = metric)) + 
+  geom_line(size = 1) + 
+  coord_cartesian(xlim = c(0, 50),
+                  ylim = c(0, 250)) +
+  scale_x_continuous(breaks = seq(0, 100, by = 5)) +
+  xlab("Blocks Assigned to Farm") + 
+  ylab("Time to Random Tick (seconds)")
 ```
 
 
-Since players do not tend to think in terms of ticks, the mean time to the next random tick assignment is translated into player friendly time formats in the following table. The columns to the right of the mean show various quantiles. In the `p_025` column, 2.5% of the time, the next random tick will be assigned in less than 1.7 seconds. The median time to the next random tick assignment is give in the `p_500` column. 
-
-```{r}
-data.frame(unit = c("tick", 
-                    "milliseconds", 
-                    "seconds", 
-                    "minutes", 
-                    "hours"), 
-           conversion = c(1, 5, 20, 20 * 60, 2 * 60 * 60)) %>% 
-  mutate(mean  = (1 / P_RTICK) / conversion, 
-         p_025 = qgeom(0.025, P_RTICK) / conversion,
-         p_050 = qgeom(0.050, P_RTICK) / conversion, 
-         p_010 = qgeom(0.100, P_RTICK) / conversion, 
-         p_500 = qgeom(0.500, P_RTICK) / conversion, 
-         p_900 = qgeom(0.900, P_RTICK) / conversion, 
-         p_950 = qgeom(0.950, P_RTICK) / conversion, 
-         p_975 = qgeom(0.975, P_RTICK) / conversion) %>% 
-  knitr::kable(digits = 2)
-```
-
-### Number of Random Ticks Assigned
-
-Another metric of interest to the player may, at times, be the number of random ticks assigned within a certain time frame. This metric can be modeled using a Binomial distribution with the parameters $p = `r P_RTICK`$ and $n$ is equal to the number of ticks in time time period of interest. The mean of the Binomial distribution is $n \cdot p$ with a standard deviation of $\sqrt{n \cdot p \cdot (1 - p)}$. With 1200 ticks occurring each minute, the mean number of random ticks assigned to a block within a minutes is $\mu = `r 1200 * P_RTICK`$ with standard deviation $\sigma = `r sqrt(1200 * P_RTICK * (1 - P_RTICK))`$.
-
-```{r}
-RTickPerMinute <- 
-  data.frame(x = 0:10) %>% 
-  mutate(p = dbinom(x, 60 * 20, P_RTICK))
-
-ggplot(data = RTickPerMinute, 
-       mapping = aes(x = x, 
-                     y = p)) + 
-  geom_bar(stat = "identity", 
-           fill = PURPLE) + 
-  geom_text(mapping = aes(y = p + .02, 
-                          label = round(p, 4))) +
-  coord_cartesian(xlim = c(0, 10)) + 
-  scale_x_continuous(breaks = 0:10)
-```
-
-Another way to interpret this is that `r round((1 - RTickPerMinute$p[1]) * 100, 2)`% of blocks receive at least one random tick during each minute.
+## Distributional Background of Random Ticks

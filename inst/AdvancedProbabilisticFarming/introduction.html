@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Advanced Probabilistic Minecraft Farming</title>
+  <meta name="description" content="Advanced Probabilistic Minecraft Farming" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Advanced Probabilistic Minecraft Farming" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Advanced Probabilistic Minecraft Farming" />
+  
+  
+  
+
+
+
+<meta name="date" content="2024-02-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="growth-related-tick-mechanics.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#definitions"><i class="fa fa-check"></i><b>1.1</b> Definitions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html"><i class="fa fa-check"></i><b>2</b> Growth Related Tick Mechanics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#probability-of-random-tick-assignment"><i class="fa fa-check"></i><b>2.1</b> Probability of Random Tick Assignment</a></li>
+<li class="chapter" data-level="2.2" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#time-to-random-tick"><i class="fa fa-check"></i><b>2.2</b> Time To Random Tick</a></li>
+<li class="chapter" data-level="2.3" data-path="growth-related-tick-mechanics.html"><a href="growth-related-tick-mechanics.html#table-of-calculated-values"><i class="fa fa-check"></i><b>2.3</b> Table of Calculated Values</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="growth-probability.html"><a href="growth-probability.html"><i class="fa fa-check"></i><b>3</b> Growth Probability</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="growth-probability.html"><a href="growth-probability.html#from-mean-time-to-growth"><i class="fa fa-check"></i><b>3.1</b> From Mean Time to Growth</a></li>
+<li class="chapter" data-level="3.2" data-path="growth-probability.html"><a href="growth-probability.html#from-median-time-to-growth"><i class="fa fa-check"></i><b>3.2</b> From Median Time to Growth</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Advanced Probabilistic Minecraft Farming</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Advanced Probabilistic Minecraft Farming</h1>
+<p class="author"><em></em></p>
+<p class="date"><em>26 Feb 2024</em></p>
+</div>
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>This document provides the fully developed mathematical theory underlying the Minecraft farming mechanics. It will develop the principles behind ticks and random ticks and extend those principles to growth models. After establishing the foundations, a discussion of growth mechanics for some farms of interest will be entertained. The mathematical results and principles will be of use in estimating farming production for specific items.</p>
+<p>The theory and formulae provided in this document rely heavily on conditional probability, Bayes’ Rule, and the Hypergeometric distribution. The conceptual background of the terms listed below may be difficult to decipher when mixed in with the mathematical notation. The reader is encouraged to review <em>Basic Probabilistic Farming</em> to better understand the conceptual background of these terms.</p>
+<div id="definitions" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Definitions</h2>
+<ul>
+<li><span class="math inline">\(S\)</span>: The number of growth stages a crop experiences before reaching maturity.</li>
+<li><span class="math inline">\(\Pr(RTick)\)</span>: The probability of a random tick being assigned to a block.</li>
+<li><span class="math inline">\(TTRT\)</span>: (Time to Random Tick) The duration of time until a random tick is assigned to a block measured in minutes.</li>
+<li><span class="math inline">\(\Pr(Growth | RTick)\)</span>: (Growth rate) The probability that a crop will advance a growth stage when assigned a random tick.</li>
+<li><span class="math inline">\(TTG\)</span>: (Time to growth) The duration of time until a crop advances a growth stage measured in minutes.</li>
+<li><span class="math inline">\(TTM\)</span>: (Time to maturity) The duration of time until a crop reaches maturity measured in minutes.</li>
+<li><span class="math inline">\(ECO\)</span>: (Expected Crop Output) The calculated yield of new crop per minute returned by harvesting a mature crop.</li>
+<li><span class="math inline">\(NSG\)</span>: (Net Smelting Gain) The net increase in items smelted after accounting for items of the same type consumed in converting the resource to fuel.</li>
+<li><span class="math inline">\(PFI\)</span>: (Perpetual Furnace Index) The number of blocks of a resource that must be farmed to support continuous and uninterrupted operation of a single furnace.</li>
+</ul>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="growth-related-tick-mechanics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"theme": "united",
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

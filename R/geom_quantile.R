@@ -5,8 +5,12 @@
 #'   produce some less than helpful results (such as 10% of crops will be
 #'   mature after 0 seconds). This approximates the geometric distribution 
 #'   quantiles on a continuous basis.
-#'   
-#' @inheritParams TimeToGrowth
+#'  
+#' @param growth_probability `numeric(1)` on the interval (0, 1). The 
+#'   probability that a crop will advance a growth stage when assigned a
+#'   random tick.
+#' @param p `numeric(1)` on the interval (0, 1). The probability used for 
+#'   calculating the quantile via [qgeom()].   
 #' 
 #' @export
 

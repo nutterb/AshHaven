@@ -1,32 +1,26 @@
 # Time to Growth
 
-The Time to Growth (TTG) is the duration of time until a crop advances a growth stage measured in minutes. The probability of growth is the intersection of the independent events of a random tick being assigned and growth occurring. This also follows a Geometric distribution where the parameter $p$ is given by 
+The Time To Growth ($TTG$) is the duration of time until a crop advances a growth stage measured in minutes. The probability of growth is the intersection of the independent events of a random tick being assigned to the block and growth occurring. For a single block, the probability of a growth event is 
 
-$$p = \Pr(RTick \cap Growth) = \Pr(RTick) \cdot \Pr(Growth | RTick)$$
+$$
+\Pr(RTick \cap Growth) = \Pr(RTick) \cdot \Pr(Growth | RTick)
+$$
 
-The mean, median, and quantiles calculated from this parameter are given in units of ticks. These values are multiplied by 1200 to convert to units of minutes.
+As farms increase in size, however, the probability of a growth event changes. It must also be considered that a farm with more than one block assigned may have more than one growth event within a single tick. This means the probability function must account for both the number of blocks assigned a random tick and the number of ticked blocks that experience growth. 
 
-## Mean Time to Growth
+It was demonstrated earlier that the number of blocks in the farm receiving a random tick has a hypergeometric probability distribution. Suppose, then, that $F_r$ blocks of farm land receive a random tick. Each has an independent probability of advancing a growth stage $\Pr(Growth|RTick)$, and the number of those blocks that advance a stage can be modeled using a _Binomial_ distribution with $n = F_r$ and $p = \Pr(Growth|RTick)$.
 
-The mean Time to Growth ($TTG_\mu$) provides the mean time to growth based on the mean of the Geometric distribution. 
-
-$$\begin{aligned}
-TTG_\mu &= TTR_\mu \cdot \frac{1}{\Pr(Growth|Tick)} \cdot \frac{1}{1200} \\
-        &= \frac{TTR_\mu}{1200 \cdot \Pr(Growth|Tick)}
-\end{aligned}$$
-
-## Median Time to Growth
-The Median Time to Growth ($TTG_M$) provides the median time to growth based on the median of the Geometric distribution.
+The calculation is further complicated by the fact that both the number of the number of farm blocks receiving a random tick and the number of growth events among those blocks are both random variables. There may be between zero and three farm blocks that receive a random tick, and between zero and three blocks that experience growth, creating sixteen events in the joint sample space. Applying the Law of Total Probability, the probability distribution function for $G$ growth events for $F_r$ farm blocks receiving a random tick is (using $rts$ as the random tick speed and $B$ as the number of blocks in a subchunk):
 
 $$\begin{aligned}
-TTG_M &= TTR_M \cdot \frac{-1}{\log_2(1 - \Pr(Growth|RTick))} \cdot \frac{1}{1200} \\
-      &= \frac{-TTR_M}{1200 \cdot \log_2(1 - \Pr(Growth|RTick))}
-\end{aligned}$$
-
-## Time To Growth Quantiles
-
-Calculations for quantiles do not have a form that lends themselves to simple calculations. Computerized calculations will be used as necessary, such as R's `qgeom` function to calculate $TTG_p$ for quantiles of TTG.
-
-$$\begin{aligned}
-TTG_p &= TTR_p \cdot \frac{qgeom(p,\ \Pr(RTick) \cdot \Pr(Growth|RTick))}{1200}
+\Pr(G = g, F_r = f | F)
+  &= \frac{HyperG(F, f, B, rts) \cdot Binom(g; n = f, p = \Pr(Growth|RTick))}
+          {\sum\limits_{i_f}^{F_r} \sum\limits_{i_g}^g 
+            HyperG(F, i_f, B, rts) \cdot 
+            Binom(i_g; n = i_f, p = \Pr(Growth|RTick))} \\
+  &= \frac{\frac{{F \choose f}{B-F \choose rts - f}}{{B \choose rts}} \cdot 
+                 {f \choose g} \cdot \Pr(Growth|RTick) ^ g \cdot (1 - \Pr(Growth|RTick)) ^ {f-g}}
+          {\sum\limits_{i_f}^{F_r} \sum\limits_{i_g}^g 
+              \frac{{F \choose i_f}{B-F \choose rts - i_f}}{{B \choose rts}} \cdot 
+              {i_f \choose i_g} \cdot \Pr(Growth|RTick) ^ {i_g} \cdot (1 - \Pr(Growth|RTick)) ^ {i_f-i_g}}
 \end{aligned}$$

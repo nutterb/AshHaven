@@ -4,6 +4,10 @@ The growth probability of a crop is the probability that it will advance a growt
 
 ## From Mean Time to Growth
 
+```{r}
+TTR_MEAN <- ttrt(1, method = "mean")
+```
+
 The Minecraft wiki states that bamboo grows approximately once every 4096 game ticks (https://minecraft.fandom.com/wiki/Tutorials/Bamboo_farming#Automatic_bamboo_farming_design). Knowing that a random tick is assigned approximately once every `r TTR_MEAN` ticks, the average number of random ticks assigned before growth is $\frac{4096}{`r TTR_MEAN`} = `r 4096 / TTR_MEAN`$. This implies that growth occurs once every three random ticks, for a probability of growth equal to 1/3 on each random tick.
 
 Generally speaking the formula for probability of growth calculated from the mean time to growth is

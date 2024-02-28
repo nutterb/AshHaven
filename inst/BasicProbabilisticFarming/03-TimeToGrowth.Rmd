@@ -1,0 +1,32 @@
+# Time to Growth
+
+The Time to Growth (TTG) is the duration of time until a crop advances a growth stage measured in minutes. The probability of growth is the intersection of the independent events of a random tick being assigned and growth occurring. This also follows a Geometric distribution where the parameter $p$ is given by 
+
+$$p = \Pr(RTick \cap Growth) = \Pr(RTick) \cdot \Pr(Growth | RTick)$$
+
+The mean, median, and quantiles calculated from this parameter are given in units of ticks. These values are multiplied by 1200 to convert to units of minutes.
+
+## Mean Time to Growth
+
+The mean Time to Growth ($TTG_\mu$) provides the mean time to growth based on the mean of the Geometric distribution. 
+
+$$\begin{aligned}
+TTG_\mu &= TTR_\mu \cdot \frac{1}{\Pr(Growth|Tick)} \cdot \frac{1}{1200} \\
+        &= \frac{TTR_\mu}{1200 \cdot \Pr(Growth|Tick)}
+\end{aligned}$$
+
+## Median Time to Growth
+The Median Time to Growth ($TTG_M$) provides the median time to growth based on the median of the Geometric distribution.
+
+$$\begin{aligned}
+TTG_M &= TTR_M \cdot \frac{-1}{\log_2(1 - \Pr(Growth|RTick))} \cdot \frac{1}{1200} \\
+      &= \frac{-TTR_M}{1200 \cdot \log_2(1 - \Pr(Growth|RTick))}
+\end{aligned}$$
+
+## Time To Growth Quantiles
+
+Calculations for quantiles do not have a form that lends themselves to simple calculations. Computerized calculations will be used as necessary, such as R's `qgeom` function to calculate $TTG_p$ for quantiles of TTG.
+
+$$\begin{aligned}
+TTG_p &= TTR_p \cdot \frac{qgeom(p,\ \Pr(RTick) \cdot \Pr(Growth|RTick))}{1200}
+\end{aligned}$$

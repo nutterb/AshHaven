@@ -1,0 +1,53 @@
+# Growth Probability 
+
+The growth probability of a crop is the probability that it will advance a growth stage when it is assigned a random tick. Whereas this probability is conditioned on the assignment of a random tick, it is denoted $\Pr(Growth | RTick)$. The probability of growth is not always explicitly stated in easy to find resources. This section covers how to calculate the probability of growth from the mean time to growth and the median time to growth.
+
+## From Mean Time to Growth
+
+The Minecraft wiki states that bamboo grows approximately once every 4096 game ticks (https://minecraft.fandom.com/wiki/Tutorials/Bamboo_farming#Automatic_bamboo_farming_design). Knowing that a random tick is assigned approximately once every `r TTR_MEAN` ticks, the average number of random ticks assigned before growth is $\frac{4096}{`r TTR_MEAN`} = `r 4096 / TTR_MEAN`$. This implies that growth occurs once every three random ticks, for a probability of growth equal to 1/3 on each random tick.
+
+Generally speaking the formula for probability of growth calculated from the mean time to growth is
+
+$$\Pr(Growth | RTick) = \frac{`r TTR_MEAN`}{TicksToGrowth}$$
+
+If units are given in other time units, the appropriate multiplier may be applied. For instance, if a resource describes a crop as growing once every few minutes, multiplying the denominator in the previous formula by 1200 will convert the number of minutes to ticks.
+
+## From Median Time to Growth
+
+The median of the Geometric distribution is calculated as 
+
+$$M = \frac{-1}{\log_2(1-\Pr(Growth|RTick))}$$
+
+Solving this for $\Pr(Growth|RTick)$ gives the probability of growth on a random tick. 
+
+$$\begin{aligned}
+&            &                \frac{M}{TTRT} &= \frac{-TTRT}{\log_2(1-\Pr(Growth | RTick))} \\
+&\Rightarrow &                             M &= \frac{-TTRT}{\log_2(1-\Pr(Growth | RTick))}     \\
+&\Rightarrow & \log_2(1-\Pr(Growth | RTick)) &= \frac{-TTRT}{M}                             \\
+&\Rightarrow &         1-\Pr(Growth | RTick) &= 2^{\frac{-TTRT}{M}}       \\
+&\Rightarrow &           2^{\frac{-TTRT}{M}} &= 1 - \Pr(Growth | RTick)                      \\
+&\Rightarrow &        \Pr(Growth | RTick)    &= 1 - 2^{\frac{-TTRT}{M}}       \\
+\end{aligned}$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

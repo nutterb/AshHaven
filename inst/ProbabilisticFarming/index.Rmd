@@ -1,5 +1,5 @@
 --- 
-title: "Probabilistic Minecraft Farming"
+title: "Probabilistic Farming in Minecraft"
 subtitle: ""
 author: ""
 date: "`r format(Sys.Date(), format = '%d %b %Y')`"
@@ -28,6 +28,8 @@ link-citations: yes
 library(AshHaven)
 library(dplyr)
 library(ggplot2)
+library(reshape2)
+library(tidyr)
 
 theme_set(theme_bw())
 
@@ -40,9 +42,11 @@ knitr::opts_chunk$set(echo = FALSE,
 
 # Introduction 
 
-This document provides the mathematical theory underlying the Minecraft farming mechanics. It will develop the principles behind ticks and random ticks and extend those principles to simple growth models. After establishing the foundations, a discussion of growth mechanics for some farms of interest will be entertained. The mathematical results and principles will be of use in estimating farming production for specific items.
+This document develops the probability theory underlying Minecraft farming mechanics. It will develop the principles behind ticks and random ticks and extend those principles to simple growth models. After establishing the foundations, a discussion of growth mechanics for some farms of interest will be entertained. The mathematical results and principles will be of use in estimating farming production for specific items. 
 
 ## Definitions
+
+The motivation for this document is to develop a set of metrics to aid in the decision making related to efficient farm design. The key terms used and developed are
 
 * $S$: The number of growth stages a crop experiences before reaching maturity.
 * $\Pr(RTick)$: The probability of a random tick being assigned to a block.
@@ -54,51 +58,6 @@ This document provides the mathematical theory underlying the Minecraft farming 
 * $NSG$: (Net Smelting Gain) The net increase in items smelted after accounting for items of the same type consumed in converting the resource to fuel.
 * $PFI$: (Perpetual Furnace Index) The number of blocks of a resource that must be farmed to support continuous and uninterrupted operation of a single furnace.
 
-```{r functions}
-# Probability or Random Tick
-P_RTICK <- 3 / (16^3)
-
-# Time to Random Tick
-TTR_MEAN <- 1 / P_RTICK
-TTR_MEDIAN <- -1 / (log2(1 - P_RTICK))
-TTR_Q <- function(p){ qgeom(p, prob = P_RTICK)}
-
-# Time to Growth
-TTG_MEAN <- function(pr_growth, ticks = 1200){ (TTR_MEAN / (pr_growth)) / ticks }
-TTG_MEDIAN <- function(pr_growth, ticks = 1200){ (-1 * TTR_MEDIAN / (log2(1 - pr_growth))) / ticks}
-TTG_Q <- function(p, pr_growth, ticks = 1200){ (TTR_Q(p) * qgeom(p, prob = pr_growth)) / ticks }
-
-# Time to Maturity
-TTM_MEAN <- function(pr_growth, stage, ticks = 1200){TTG_MEAN(pr_growth, ticks) * stage}
-TTM_MEDIAN <- function(pr_growth, stage, ticks = 1200){TTG_MEDIAN(pr_growth, ticks) * stage}
-TTM_Q <- function(p, pr_growth, stage, ticks = 1200){TTG_Q(p, pr_growth, ticks) * stage}
-
-# Expected Crop Output
-ECO_MEAN <- function(yield, pr_growth, stage, ticks = 1200){
-  yield / TTM_MEAN(pr_growth, stage, ticks)
-}
-
-ECO_MEDIAN <- function(yield, pr_growth, stage, ticks = 1200){
-  yield / TTM_MEDIAN(pr_growth, stage, ticks)
-}
-
-ECO_Q <- function(yield, pr_growth, stage, ticks = 1200){
-  yield / TTM_Q(pr_growth, stage, ticks)
-}
-
-# Net Smelting Gain 
-NSG <- function(OI, SI, CC){
-  (OI - SI) / CC
-}
-
-# Perpetual Furnace Index
-PFI <- function(nsg, eco){
-  (6) / (nsg * eco)
-}
-```
-
-```{r, child = '00-SupportFunction.Rmd'}
-```
 
 ```{r, child = '01-TickMechanics.Rmd'}
 ```
@@ -107,28 +66,4 @@ PFI <- function(nsg, eco){
 ```
 
 ```{r, child = '03-TimeToGrowth.Rmd'}
-```
-
-```{r, child = '04-TimeToMaturity.Rmd'}
-```
-
-```{r, child = '05-ExpectedCropOutput.Rmd'}
-```
-
-```{r, child = '06-NetSmeltingGain.Rmd'}
-```
-
-```{r, child = '07-PerpetualFurnaceIndex.Rmd'}
-```
-
-```{r, child = 'BambooFarming.Rmd'}
-```
-
-```{r, child = 'KelpFarming.Rmd'}
-```
-
-```{r, child = 'WheatFarming.Rmd'}
-```
-
-```{r, child = 'WheatSeedFarming.Rmd'}
 ```

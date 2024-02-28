@@ -8,8 +8,7 @@ geom_quantile(p, growth_probability)
 }
 \arguments{
 \item{p}{\code{numeric(1)} on the interval (0, 1). The probability used for
-determining the quartile of the probability distribution. Used only
-when \code{unit = "minute"}.}
+calculating the quantile via \code{\link[=qgeom]{qgeom()}}.}
 
 \item{growth_probability}{\code{numeric(1)} on the interval (0, 1). The
 probability that a crop will advance a growth stage when assigned a
