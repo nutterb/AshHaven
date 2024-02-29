@@ -25,3 +25,12 @@ geom_quantile <- function(p, growth_probability){
                  p = p)$root
 }
 
+# Unexported
+
+geom_mean <- function(p){
+  1 / p
+}
+
+geom_median <- function(p){
+  -1 / (log2(1 - p))
+}

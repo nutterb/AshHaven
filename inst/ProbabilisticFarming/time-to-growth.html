@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2024-02-28" />
+<meta name="date" content="2024-02-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -125,6 +125,52 @@
               \frac{{F \choose i_f}{B-F \choose rts - i_f}}{{B \choose rts}} \cdot 
               {i_f \choose i_g} \cdot \Pr(Growth|RTick) ^ {i_g} \cdot (1 - \Pr(Growth|RTick)) ^ {i_f-i_g}}
 \end{aligned}\]</span></p>
+<p>Understanding the probability distribution of growth is essential to calculating <span class="math inline">\(TTG\)</span>. Similar to the Time to Random Tick (<span class="math inline">\(TTR\)</span>), the mean and median <span class="math inline">\(TTG\)</span> can be modeled with a geometric distribution, so long as we can provide the value of <span class="math inline">\(p\)</span>, the probability of growth. Using the formula above, we can calculate <span class="math inline">\(p\)</span> as</p>
+<p><span class="math display">\[
+p = \Pr(G &gt; 0, 0 &lt; F_r &lt; rts | F)
+\]</span></p>
+<p>In conceptual terms, <span class="math inline">\(p\)</span> is the sum of probabilities from the joint sample space of <span class="math inline">\(G\)</span> and <span class="math inline">\(F_r\)</span> where <span class="math inline">\(G &gt; 0\)</span>. To illustrate, consider a bamboo farm consisting of 50 blocks and that for bamboo <span class="math inline">\(\Pr(Growth | RTick) = 0.15\)</span>. The probability distribution of the joint sample space is shown in the next table, and <span class="math inline">\(p\)</span> is the sum of the three columns on the right, or <span class="math inline">\(p = 0.0054833\)</span>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Fr</th>
+<th align="left">G = 0</th>
+<th align="left">G = 1</th>
+<th align="left">G = 2</th>
+<th align="left">G = 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">0.9638154</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">0.03038735</td>
+<td align="left">0.005362474</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">0.0003128883</td>
+<td align="left">0.0001104312</td>
+<td align="left">9.743927e-06</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">1.051726e-06</td>
+<td align="left">5.567959e-07</td>
+<td align="left">9.825809e-08</td>
+<td align="left">5.779888e-09</td>
+</tr>
+</tbody>
+</table>
 </div>
             </section>
 

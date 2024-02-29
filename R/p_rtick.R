@@ -63,7 +63,7 @@ ttrt <- function(f,
   P_RTICK <- sum(p_rtick(f = f, fr = 1:3, random_tick_speed = random_tick_speed, B = B))
   
   switch(method, 
-         "mean" = 1 / P_RTICK,
-         "median" = -1 / (log2(1 - P_RTICK)), 
+         "mean" = geom_mean(P_RTICK),
+         "median" = geom_median(P_RTICK), 
          "quantile" = geom_quantile(p, growth_probability = P_RTICK))
 }

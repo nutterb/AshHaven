@@ -24,3 +24,31 @@ $$\begin{aligned}
               \frac{{F \choose i_f}{B-F \choose rts - i_f}}{{B \choose rts}} \cdot 
               {i_f \choose i_g} \cdot \Pr(Growth|RTick) ^ {i_g} \cdot (1 - \Pr(Growth|RTick)) ^ {i_f-i_g}}
 \end{aligned}$$
+
+Understanding the probability distribution of growth is essential to calculating $TTG$. Similar to the Time to Random Tick ($TTR$), the mean and median $TTG$ can be modeled with a geometric distribution, so long as we can provide the value of $p$, the probability of growth. Using the formula above, we can calculate $p$ as 
+
+$$
+p = \Pr(G > 0, 0 < F_r < rts | F)
+$$
+
+```{r}
+SampleSpace <- 
+  expand.grid(G = 0:3, 
+              Fr = 0:3) %>% 
+  mutate(prob = mapply(p_growth_phase, 
+                       g = G, 
+                       fr = Fr, 
+                       MoreArgs = list(f = 50, 
+                                       p_growth = 0.15),
+                       SIMPLIFY = FALSE)) 
+```
+
+In conceptual terms, $p$ is the sum of probabilities from the joint sample space of $G$ and $F_r$ where $G > 0$. To illustrate, consider a bamboo farm consisting of 50 blocks and that for bamboo $\Pr(Growth | RTick) = 0.15$. The probability distribution of the joint sample space is shown in the next table, and $p$ is the sum of the three columns on the right, or $p = `r SampleSpace %>% filter(G > 0) %>% select(prob) %>% unlist() %>% sum()`$.
+
+```{r}
+SampleSpace %>% 
+  mutate(G = sprintf("G = %s", G)) %>% 
+  dcast(Fr ~ G, 
+        value.var = "prob") %>% 
+  knitr::kable()
+```
