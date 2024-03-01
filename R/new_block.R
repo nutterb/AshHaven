@@ -34,6 +34,9 @@
 #' * `is_mature()`: Returns a `logical` indicating if the crop has reached maturity.
 #' * `assign_random_tick()`: Attempts to advance the growth stage of the crop with a probabilty of success equal to `growth_probability`.
 #' * `random_tick_count()`: Returns the number of times the block has been assigned a random tick. 
+#' * `just_grew()`: Returns a `logical`. Used for convenience of data collection. Subchunk tick functions will set this property and use it to count how many randomly ticked chunks grew.
+#' * `set_just_grew(state)`: Used to set the value of the `just_grew` property. `state` must be a `logical(1)`.
+#' 
 #' @export
 
 new_block <- function(type = "none", 
@@ -76,6 +79,7 @@ new_block <- function(type = "none",
   this_current_gs <- current_growth_stage
   this_max_gs <- max_growth_stage
   this_rt_count <- 0
+  this_just_grew <- FALSE
 
   # Object Methods --------------------------------------------------
   
@@ -139,7 +143,16 @@ new_block <- function(type = "none",
                        size = 1, 
                        prob = c(1 - this_p_grow, this_p_grow))
     
+    this_just_grew <<- as.logical(did_grow)
+    
     this_current_gs <<- this_current_gs + did_grow
+  }
+  
+  just_grew <- function() this_just_grew
+  set_just_grew <- function(state = FALSE){
+    checkmate::assertLogical(x = state, 
+                             len = 1)
+    this_just_grew <<- state
   }
     
   # Object Return ---------------------------------------------------
@@ -161,7 +174,10 @@ new_block <- function(type = "none",
          set_max_growth_stage = set_max_growth_stage,
          is_mature = is_mature, 
          assign_random_tick = assign_random_tick, 
-         random_tick_count = function() this_rt_count), 
+         random_tick_count = function() this_rt_count, 
+         
+         just_grew = just_grew, 
+         set_just_grew = set_just_grew),
     class = "minecraft_block")
 }
 
