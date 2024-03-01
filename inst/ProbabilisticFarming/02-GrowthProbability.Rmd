@@ -33,25 +33,3 @@ $$\begin{aligned}
 &\Rightarrow &        \Pr(Growth | RTick)    &= 1 - 2^{\frac{-TTRT}{M}}       \\
 \end{aligned}$$
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
