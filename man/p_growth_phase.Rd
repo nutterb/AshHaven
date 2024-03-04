@@ -18,9 +18,11 @@ p_growth_phase(
 \item{p_growth}{\code{numeric(1)} on the interval (0, 1). The probability of the
 crop experiencing growth when it is assigned a random tick.}
 
-\item{g}{\code{integerish}. Defaults to \code{0:max(f_r)}.}
+\item{g}{\code{integerish(1)} on the interval \link{0, fr}. The number of growth events
+observed.}
 
-\item{fr}{\code{integerish}. Defaults to \code{0:rts}.}
+\item{fr}{\code{integerish(1)} on the interval \link{0, random_tick_speed}.
+The number of blocks of farm receiving a random tick.}
 
 \item{f}{\code{integerish(1)}. The number of blocks of farmland.}
 

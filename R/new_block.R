@@ -120,8 +120,8 @@ new_block <- function(type = "none",
     checkmate::assertIntegerish(x = i, 
                                 lower = 0,
                                 len = 1)
-    this_current_gs <- max(c(this_current_gs + i, 
-                             this_max_gs))
+    this_current_gs <<- min(c(this_current_gs + i, 
+                              this_max_gs))
   }
   
   max_growth_stage = function() this_max_gs
@@ -145,7 +145,8 @@ new_block <- function(type = "none",
     
     this_just_grew <<- as.logical(did_grow)
     
-    this_current_gs <<- this_current_gs + did_grow
+    this_current_gs <<- min(c(this_current_gs + did_grow, 
+                              this_max_gs))
   }
   
   just_grew <- function() this_just_grew
